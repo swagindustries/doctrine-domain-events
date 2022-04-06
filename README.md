@@ -15,7 +15,7 @@ It is well integrated with:
 
 But you can use it with any PHP project.
 
-[Here are some slides](http://talks.nekland.fr/DoctrineDomainEvents/) that explain how we get there.
+[Here are some slides](https://talks.nekland.fr/DoctrineDomainEvents/) that explain how we get there.
 
 Features
 --------
@@ -41,7 +41,7 @@ Installation
 ------------
 
 ```bash
-composer require biig/domain
+composer require swag-industries/doctrine-domain-events
 ```
 
 Basic usage
