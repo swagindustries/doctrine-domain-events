@@ -1,5 +1,5 @@
 {
-    "name": "biig/domain",
+    "name": "swag-industries/doctrine-domain-events",
     "type": "symfony-bundle",
     "license": "MIT",
     "require": {
@@ -9,6 +9,10 @@
         "doctrine/orm": "^2.6.3"
     },
     "authors": [
+        {
+            "name": "Maxime Veber",
+            "homepage": "https://www.nekland.fr"
+        },
         {
             "name": "BiiG",
             "homepage": "https://www.biig.fr"
