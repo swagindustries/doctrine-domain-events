@@ -25,6 +25,7 @@ class DoctrinePostPersistListenerTest extends TestCase
         $unitOfWork = $this->prophesize(UnitOfWork::class);
         $unitOfWork->getScheduledEntityInsertions()->willReturn([$model]);
         $unitOfWork->getScheduledEntityUpdates()->willReturn([]);
+        $unitOfWork->getScheduledEntityDeletions()->willReturn([]);
         $entityManager = $this->prophesize(EntityManager::class);
         $entityManager->getUnitOfWork()->willReturn($unitOfWork->reveal());
         $onFlushEvent = $this->prophesize(OnFlushEventArgs::class);

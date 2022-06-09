@@ -54,6 +54,12 @@ class DoctrinePostPersistListener extends AbstractBridgeListener implements Even
                 $this->modelsStageForFlush[] = $entity;
             }
         }
+
+        foreach ($unitOfWork->getScheduledEntityDeletions() as $entity) {
+            if ($entity instanceof ModelInterface) {
+                $this->modelsStageForFlush[] = $entity;
+            }
+        }
     }
 
     /**
