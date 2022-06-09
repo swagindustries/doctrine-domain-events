@@ -5,8 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [2.2.0] - 2021-06-09
 ### Added
 - Deleted objects will now trigger PostPersistDomainRule like insertions & updates
+
+### Changed
+- Updated test suite to work with PHPUnit 8.x and run CI with PHP 8.0 & 8.1
 
 ## [2.1.4] - 2020-09-01
 ### Fixed
