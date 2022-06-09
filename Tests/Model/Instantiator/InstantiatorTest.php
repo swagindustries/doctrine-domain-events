@@ -17,7 +17,7 @@ class InstantiatorTest extends TestCase
      */
     private $instantiator;
 
-    public function setUp()
+    public function setUp(): void
     {
         $dispatcher = new DomainEventDispatcher();
         $this->instantiator = new Instantiator($dispatcher);

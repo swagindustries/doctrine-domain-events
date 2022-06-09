@@ -19,7 +19,7 @@
         }
     ],
     "require-dev": {
-        "phpunit/phpunit": "^6.4",
+        "phpunit/phpunit": "^8.5",
         "doctrine/orm": "^2.6.3",
         "friendsofphp/php-cs-fixer": "^2.14",
         "symfony/symfony": "^4.3 || ^5.0"

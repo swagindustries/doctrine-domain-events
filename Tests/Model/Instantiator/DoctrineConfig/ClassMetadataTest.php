@@ -16,7 +16,7 @@ class ClassMetadataTest extends TestCase
      */
     private $metadata;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->metadata = new ClassMetadata(\FakeModel::class, new Instantiator(new DomainEventDispatcher()));
     }
