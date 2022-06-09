@@ -24,7 +24,7 @@ class DomainDenormalizerTest extends TestCase
      */
     private $dispatcher;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->decorated = $this->prophesize(ObjectNormalizer::class);
         $this->dispatcher = new DomainEventDispatcher();

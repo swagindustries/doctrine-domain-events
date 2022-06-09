@@ -7,6 +7,7 @@ require_once __DIR__ . '/../fixtures/FakeModel.php';
 use Biig\Component\Domain\Event\DelayedListener;
 use Biig\Component\Domain\Event\DomainEvent;
 use Biig\Component\Domain\Event\DomainEventDispatcher;
+use Biig\Component\Domain\Exception\InvalidDomainEvent;
 use Biig\Component\Domain\Model\DomainModel;
 use Biig\Component\Domain\Model\Instantiator\DoctrineConfig\ClassMetadataFactory;
 use Biig\Component\Domain\PostPersistListener\DoctrinePostPersistListener;
@@ -48,15 +49,13 @@ class DelayedListenerTest extends TestCase
         $this->assertTrue($event->isDelayed());
     }
 
-    /**
-     * @expectedException \Biig\Component\Domain\Exception\InvalidDomainEvent
-     */
     public function testItFailsToRegisterOtherThanCurrentModel()
     {
         $model = new class() {
             public $foo;
         };
 
+        $this->expectException(InvalidDomainEvent::class);
         $listener = new DelayedListener('foo', function () {});
         $listener->occur(new DomainEvent($model));
     }

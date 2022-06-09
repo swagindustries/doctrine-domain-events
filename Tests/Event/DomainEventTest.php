@@ -3,6 +3,7 @@
 namespace Biig\Component\Domain\Tests\Event;
 
 use Biig\Component\Domain\Event\DomainEvent;
+use Biig\Component\Domain\Exception\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\GenericEvent;
 
@@ -29,11 +30,9 @@ class DomainEventTest extends TestCase
         $this->assertTrue($event->isDelayed());
     }
 
-    /**
-     * @expectedException \Biig\Component\Domain\Exception\InvalidArgumentException
-     */
     public function testItThrowsAnErrorIfOrignalEventIsNotAnEvent()
     {
+        $this->expectException(InvalidArgumentException::class);
         $event = new DomainEvent(null, [], 'foo');
     }
 }

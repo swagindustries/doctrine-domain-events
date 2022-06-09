@@ -3,6 +3,7 @@
 namespace Biig\Component\Domain\Tests\Symfony\DependencyInjection\CompilerPass;
 
 use Biig\Component\Domain\Event\DomainEventDispatcher;
+use Biig\Component\Domain\Exception\InvalidConfigurationException;
 use Biig\Component\Domain\Integration\Symfony\DependencyInjection\CompilerPass\VerifyDoctrineConfigurationCompilerPass;
 use Doctrine\ORM\Configuration;
 use PHPUnit\Framework\TestCase;
@@ -19,11 +20,9 @@ class VerifyDoctrineConfigurationCompilerPassTest extends TestCase
         $this->assertInstanceOf(CompilerPassInterface::class, $pass);
     }
 
-    /**
-     * @expectedException \Biig\Component\Domain\Exception\InvalidConfigurationException
-     */
     public function testItThrowsAnErrorWhenTheConfigurationIsNotModifiedAsExpected()
     {
+        $this->expectException(InvalidConfigurationException::class);
         $container = $this->prophesize(ContainerBuilder::class);
         $container->getParameter('biig_domain_doctrine_domain_event_instantiator')->willReturn(true);
         $config = new Definition(Configuration::class);
