@@ -2,6 +2,7 @@
 
 namespace Biig\Component\Domain\Integration\Symfony;
 
+use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Biig\Component\Domain\Integration\Symfony\DependencyInjection\CompilerPass\EnableDomainDenormalizerCompilerPass;
 use Biig\Component\Domain\Integration\Symfony\DependencyInjection\CompilerPass\InsertDispatcherInClassMetadataFactoryCompilerPass;
 use Biig\Component\Domain\Integration\Symfony\DependencyInjection\CompilerPass\RegisterDomainRulesCompilerPass;
@@ -15,7 +16,7 @@ class DomainBundle extends Bundle
     /**
      * {@inheritdoc}
      */
-    public function getContainerExtension()
+    public function getContainerExtension(): ?ExtensionInterface
     {
         return new DomainExtension();
     }
