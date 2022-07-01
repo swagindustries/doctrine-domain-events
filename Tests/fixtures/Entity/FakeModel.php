@@ -1,10 +1,24 @@
 <?php
+namespace Biig\Component\Domain\Tests\fixtures\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity()
+ * @ORM\Table(name="fake_model")
+ */
 class FakeModel implements \Biig\Component\Domain\Model\ModelInterface
 {
     use \Biig\Component\Domain\Model\DomainModelTrait;
 
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
     private $id;
+
+    /** @ORM\Column() */
     private $foo;
     private $something;
 

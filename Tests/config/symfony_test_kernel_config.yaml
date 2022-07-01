@@ -1,0 +1,31 @@
+parameters:
+    router.request_context.host: 'localhost'
+
+    # BC Layer for Symfony 4.4
+    kernel.secret: 'SuperSecret'
+
+framework:
+    serializer: ~
+    form: ~
+    test: ~
+    annotations: ~
+    assets: ~
+
+doctrine:
+    dbal:
+        url: 'sqlite:///%kernel.project_dir%/Tests/fixtures/dbtest/fake_model.db'
+
+    # IMPORTANT: You MUST configure your server version,
+    # either here or in the DATABASE_URL env var (see .env file)
+    #server_version: '5.7'
+    orm:
+        auto_generate_proxy_classes: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        auto_mapping: true
+        mappings:
+            TestApplication:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/Tests/fixtures/Entity'
+                prefix: 'Biig\Component\Domain\Tests\fixtures\Entity'
+                alias: App

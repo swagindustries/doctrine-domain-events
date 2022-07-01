@@ -2,8 +2,7 @@
 
 namespace Biig\Component\Domain\Tests\Model\Instantiator;
 
-require_once __DIR__ . '/../../fixtures/FakeModel.php';
-
+use Biig\Component\Domain\Tests\fixtures\Entity\FakeModel;
 use Biig\Component\Domain\Event\DomainEventDispatcher;
 use Biig\Component\Domain\Model\DomainModel;
 use Biig\Component\Domain\Model\Instantiator\DomainModelInstantiatorInterface;
@@ -25,9 +24,9 @@ class InstantiatorTest extends TestCase
 
     public function testItInstantiateAModelWithDispatcher()
     {
-        $model = $this->instantiator->instantiate(\FakeModel::class);
+        $model = $this->instantiator->instantiate(FakeModel::class);
 
-        $this->assertInstanceOf(\FakeModel::class, $model);
+        $this->assertInstanceOf(FakeModel::class, $model);
         $this->assertTrue($model->hasDispatcher());
     }
 

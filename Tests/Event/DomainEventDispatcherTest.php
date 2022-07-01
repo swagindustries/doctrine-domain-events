@@ -2,8 +2,7 @@
 
 namespace Biig\Component\Domain\Tests\Event;
 
-require_once __DIR__ . '/../fixtures/FakeModel.php';
-
+use Biig\Component\Domain\Tests\fixtures\Entity\FakeModel;
 use Biig\Component\Domain\Event\DomainEvent;
 use Biig\Component\Domain\Event\DomainEventDispatcher;
 use Biig\Component\Domain\Model\DomainModel;
@@ -141,7 +140,7 @@ class DomainEventDispatcherTest extends TestCase
         $rule = new class() implements PostPersistDomainRuleInterface {
             public function after()
             {
-                return [\FakeModel::class => 'action'];
+                return [FakeModel::class => 'action'];
             }
 
             public function execute(DomainEvent $event)
@@ -152,8 +151,8 @@ class DomainEventDispatcherTest extends TestCase
         };
 
         // Test initialization
-        $model = new \FakeModel();
-        $model2 = new \FakeModel();
+        $model = new FakeModel();
+        $model2 = new FakeModel();
         $dispatcher = new DomainEventDispatcher();
         $dispatcher->addRule($rule);
         $model->setDispatcher($dispatcher);
@@ -175,7 +174,7 @@ class DomainEventDispatcherTest extends TestCase
             private $i = 0;
             public function after()
             {
-                return [\FakeModel::class => 'action'];
+                return [FakeModel::class => 'action'];
             }
 
             public function on()
@@ -192,7 +191,7 @@ class DomainEventDispatcherTest extends TestCase
         };
 
         // Test initialization
-        $model = new \FakeModel();
+        $model = new FakeModel();
         $dispatcher = new DomainEventDispatcher();
         $dispatcher->addRule($rule);
         $model->setDispatcher($dispatcher);

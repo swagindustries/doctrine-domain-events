@@ -2,8 +2,7 @@
 
 namespace Biig\Component\Domain\Tests\Model\Instantiator\DoctrineConfig;
 
-require_once (__DIR__ . '/../../../fixtures/FakeModel.php');
-
+use Biig\Component\Domain\Tests\fixtures\Entity\FakeModel;
 use Biig\Component\Domain\Event\DomainEventDispatcher;
 use Biig\Component\Domain\Model\Instantiator\DoctrineConfig\Instantiator;
 use Doctrine\Instantiator\InstantiatorInterface;
@@ -21,7 +20,7 @@ class InstantiatorTest extends TestCase
     {
         $instantiator = new Instantiator(new DomainEventDispatcher());
 
-        $model = $instantiator->instantiate(new \FakeModel);
+        $model = $instantiator->instantiate(new FakeModel);
         $this->assertTrue($model->hasDispatcher());
     }
 }

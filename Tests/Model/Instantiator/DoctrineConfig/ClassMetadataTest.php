@@ -2,8 +2,7 @@
 
 namespace Biig\Component\Domain\Tests\Model\Instantiator\DoctrineConfig;
 
-require_once __DIR__ . '/../../../fixtures/FakeModel.php';
-
+use Biig\Component\Domain\Tests\fixtures\Entity\FakeModel;
 use Biig\Component\Domain\Event\DomainEventDispatcher;
 use Biig\Component\Domain\Model\Instantiator\DoctrineConfig\ClassMetadata;
 use Biig\Component\Domain\Model\Instantiator\DoctrineConfig\Instantiator;
@@ -18,7 +17,7 @@ class ClassMetadataTest extends TestCase
 
     public function setUp(): void
     {
-        $this->metadata = new ClassMetadata(\FakeModel::class, new Instantiator(new DomainEventDispatcher()));
+        $this->metadata = new ClassMetadata(FakeModel::class, new Instantiator(new DomainEventDispatcher()));
     }
 
     public function testItIsInstanceOfDoctrineClassMetadata()
@@ -30,7 +29,7 @@ class ClassMetadataTest extends TestCase
     {
         $model = $this->metadata->newInstance();
 
-        $this->assertInstanceOf(\FakeModel::class, $model);
+        $this->assertInstanceOf(FakeModel::class, $model);
     }
 
     public function testItsWakable()
@@ -48,7 +47,7 @@ class ClassMetadataTest extends TestCase
 
         $model = $metadata->newInstance();
 
-        $this->assertInstanceOf(\FakeModel::class, $model);
+        $this->assertInstanceOf(FakeModel::class, $model);
         $this->assertTrue($model->hasDispatcher());
     }
 }
