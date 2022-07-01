@@ -13,3 +13,7 @@ services:
         alias: Biig\Component\Domain\Model\Instantiator\Instantiator
         public: true
 
+    Biig\Component\Domain\Integration\Symfony\Doctrine\InjectDispatcherInEntitiesOnFlush:
+        tags:
+            - name: 'doctrine.event_listener'
+              event: 'preFlush'
