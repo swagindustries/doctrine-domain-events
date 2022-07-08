@@ -12,6 +12,7 @@ It is well integrated with:
 - Symfony >= 4.3 (for >=3.3 compatibility, install the version 1.5 of the domain component)
 - ApiPlatform >= 2.1
 - Doctrine >=2.5
+- PHP >= 7.4
 
 But you can use it with any PHP project.
 
