@@ -3,7 +3,7 @@
     "type": "symfony-bundle",
     "license": "MIT",
     "require": {
-        "php": ">=7.1",
+        "php": ">=7.4",
         "symfony/event-dispatcher": "^4.3|^5.0",
         "doctrine/doctrine-bundle": "^1.8|^2.0",
         "doctrine/orm": "^2.6.3"
@@ -12,10 +12,6 @@
         {
             "name": "Maxime Veber",
             "homepage": "https://www.nekland.fr"
-        },
-        {
-            "name": "BiiG",
-            "homepage": "https://www.biig.fr"
         }
     ],
     "require-dev": {

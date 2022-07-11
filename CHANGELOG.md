@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.3.0] - 2021-07-08
+### Changed
+- PHP **minimum** version is now 7.4.0
+
 ## [2.2.0] - 2021-06-09
 ### Added
 - Deleted objects will now trigger PostPersistDomainRule like insertions & updates
