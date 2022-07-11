@@ -15,3 +15,7 @@ services:
                 id: 'biig_domain.domain_event_data_collector'
         public: false
 
+    Biig\Component\Domain\PostFlushListener\EntitiesHasDispatcherChecker:
+        tags:
+            - { name: 'doctrine.event_listener', event: 'postFlush' }
+

@@ -2,8 +2,6 @@
 
 namespace Biig\Component\Domain\Tests\Event;
 
-require_once __DIR__ . '/../fixtures/FakeModel.php';
-
 use Biig\Component\Domain\Event\DelayedListener;
 use Biig\Component\Domain\Event\DomainEvent;
 use Biig\Component\Domain\Event\DomainEventDispatcher;
@@ -12,8 +10,9 @@ use Biig\Component\Domain\Model\DomainModel;
 use Biig\Component\Domain\Model\Instantiator\DoctrineConfig\ClassMetadataFactory;
 use Biig\Component\Domain\PostPersistListener\DoctrinePostPersistListener;
 use Biig\Component\Domain\Rule\PostPersistDomainRuleInterface;
+use Biig\Component\Domain\Tests\fixtures\Entity\FakeModel;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Tools\Setup;
+use Doctrine\ORM\ORMSetup;
 use PHPUnit\Framework\TestCase;
 
 class DelayedListenerTest extends TestCase
@@ -65,7 +64,7 @@ class DelayedListenerTest extends TestCase
         $dispatcher = new DomainEventDispatcher();
         $entityManager = $this->setupDatabase($dispatcher);
 
-        $model = new \FakeModel();
+        $model = new FakeModel();
         $model->setFoo('Model1');
         $model->setDispatcher($dispatcher);
 
@@ -79,12 +78,12 @@ class DelayedListenerTest extends TestCase
 
             public function after()
             {
-                return [\FakeModel::class => 'action'];
+                return [FakeModel::class => 'action'];
             }
 
             public function execute(DomainEvent $event)
             {
-                $model = new \FakeModel();
+                $model = new FakeModel();
                 $model->setFoo('RulePostPersist');
                 $this->entityManager->persist($model);
                 $this->entityManager->flush($model);
@@ -97,7 +96,7 @@ class DelayedListenerTest extends TestCase
         $entityManager->flush($model);
 
         // 3 because the database was already containing 1 entry
-        $this->assertEquals(3, count($entityManager->getRepository(\FakeModel::class)->findAll()));
+        $this->assertEquals(3, count($entityManager->getRepository(FakeModel::class)->findAll()));
         $this->dropDatabase();
     }
 
@@ -107,7 +106,7 @@ class DelayedListenerTest extends TestCase
         $dispatcher = new DomainEventDispatcher();
         $entityManager = $this->setupDatabase($dispatcher);
 
-        $model = new \FakeModel();
+        $model = new FakeModel();
         $model->setFoo(0);
         $model->setDispatcher($dispatcher);
 
@@ -127,9 +126,9 @@ class DelayedListenerTest extends TestCase
     private function setupDatabase(DomainEventDispatcher $dispatcher)
     {
         $this->dbPath = \sys_get_temp_dir() . '/testItInsertInBddAfterFlushing.' . \microtime() . '.sqlite';
-        copy(__DIR__ . '/../fixtures/dbtest/fake_model.db', $this->dbPath);
+        copy(__DIR__ . '/../fixtures/dbtest/initial_fake_model.db', $this->dbPath);
 
-        $config = Setup::createYAMLMetadataConfiguration(array(__DIR__ . '/../fixtures/config'), true);
+        $config = ORMSetup::createAnnotationMetadataConfiguration(array(__DIR__ . '/../fixtures/Entity'), true);
         $config->setClassMetadataFactoryName(ClassMetadataFactory::class);
         $conn = [
             'driver' => 'pdo_sqlite',
@@ -169,7 +168,7 @@ class CountAndInsertRule implements PostPersistDomainRuleInterface
 
     public function after()
     {
-        return [\FakeModel::class => 'action'];
+        return [FakeModel::class => 'action'];
     }
 
     public function execute(DomainEvent $event)
@@ -178,7 +177,7 @@ class CountAndInsertRule implements PostPersistDomainRuleInterface
         $event->getSubject()->setFoo($event->getSubject()->getFoo() + 1);
 
         // Trigger flush
-        $model = new \FakeModel();
+        $model = new FakeModel();
         $model->setFoo('Something new to insert');
         $this->entityManager->persist($model);
         $this->entityManager->flush($model);
