@@ -6,18 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-<<<<<<< HEAD
-## [2.3.0] - 2021-07-08
-### Changed
-- PHP **minimum** version is now 7.4.0
-=======
 ### Added
 - A listener on entities flush when your application is in **debug** mode. It ensure you're instancing your entities the right way, so the property `dispatcher` must always contains an `DomainEventDispatcherInterface` instance. If not it throw an exception and tells you which entities is causing the error.
 
 ### Changed
+- PHP **minimum** version is now 7.4.0
 - Configure test suite to allow integration tests and configure a test Kernel.
 - Refactor the FakeModel test entity to use classic doctrine annotations.
->>>>>>> Add an on flush listener that check every model entities in the Doctrine unit of work has a dispatcher instance. This check is done only in debug mode
 
 ## [2.2.0] - 2021-06-09
 ### Added
