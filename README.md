@@ -1,7 +1,7 @@
 Domain component
 ================
 
-[![Build Status](https://travis-ci.org/biig-io/DomainComponent.svg?branch=master)](https://travis-ci.org/biig-io/DomainComponent)
+[![Build Status](https://github.com/swagindustries/doctrine-domain-events/actions/workflows/ci.yaml/badge.svg)](https://travis-ci.org/biig-io/DomainComponent)
 [![Latest Stable Version](https://poser.pugx.org/biig/domain/v/stable)](https://packagist.org/packages/biig/domain)
 [![License](https://poser.pugx.org/biig/domain/license)](https://packagist.org/packages/biig/domain)
 
