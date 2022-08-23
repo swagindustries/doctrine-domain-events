@@ -9,7 +9,7 @@ This library is design to help you to build your application with a Domain Desig
 
 It is well integrated with:
 
-- Symfony >= 4.3 (for >=3.3 compatibility, install the version 1.5 of the domain component)
+- Symfony >= 5.0 (Previous major versions compatibility are detailed in **_Versions_** section below)
 - ApiPlatform >= 2.1
 - Doctrine >=2.5
 - PHP >= 7.4
@@ -98,10 +98,12 @@ Learn more about [Symfony Integration](/docs/domain_event_dispatcher.md#symfony-
 Versions
 --------
 
-| Version | Status     | Documentation | Symfony Version | PHP Version |
-|---------|------------|---------------| --------------- | ------------|
-| 1.x     | Maintained | [v1][v1-doc]  | '>= 3.3 && <5'  | '>= 7.1'    |
-| 2.x     | Latest     | [v2][v2-doc]  | '>= 4.3'        | '>= 7.1'    |
+| Version | Status       | Documentation | Symfony Version  | PHP Version |
+|---------|--------------|---------------|------------------|-------------|
+| 1.x     | Unmaintained | [v1][v1-doc]  | '>= 3.3 && <5'   | '>= 7.1'    |
+| 2.x     | Maintained   | [v2][v2-doc]  | '>= 4.3 && < 6'  | '>= 7.1'    |
+| 3.x     | Latest       | [v3][v2-doc]  | '>= 5.0 && <7'   | '>= 7.4'    |
 
 [v1-doc]: https://github.com/biig-io/DomainComponent/tree/v1
-[v2-doc]: https://github.com/biig-io/DomainComponent
+[v2-doc]: https://github.com/biig-io/DomainComponent/tree/v2
+[v3-doc]: https://github.com/biig-io/DomainComponent
