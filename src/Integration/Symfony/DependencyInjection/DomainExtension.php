@@ -16,7 +16,7 @@ class DomainExtension extends Extension implements PrependExtensionInterface
 {
     public const DOMAIN_RULE_TAG = 'biig_domain.rule';
 
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $loader = new YamlFileLoader(
             $container,
@@ -46,7 +46,7 @@ class DomainExtension extends Extension implements PrependExtensionInterface
      * This may fail if a bundle (registered after this one) or a compiler pass modify the parameter.
      * The `VerifyDoctrineConfigurationCompilerPass` verify configuration integrity.
      */
-    public function prepend(ContainerBuilder $container)
+    public function prepend(ContainerBuilder $container): void
     {
         // get all bundles
         $bundles = $container->getParameter('kernel.bundles');
@@ -66,7 +66,7 @@ class DomainExtension extends Extension implements PrependExtensionInterface
         }
     }
 
-    public function getAlias()
+    public function getAlias(): string
     {
         return 'biig_domain';
     }
