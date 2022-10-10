@@ -25,7 +25,7 @@ if (interface_exists(\Doctrine\Persistence\Mapping\ClassMetadata::class)) {
         /**
          * {@inheritdoc}
          */
-        public function newClassMetadataInstance($className)
+        public function newClassMetadataInstance($className): ClassMetadata
         {
             return new ClassMetadata($className, new Instantiator($this->dispatcher), $this->entityManager->getConfiguration()->getNamingStrategy());
         }
@@ -38,7 +38,7 @@ if (interface_exists(\Doctrine\Persistence\Mapping\ClassMetadata::class)) {
         /**
          * {@inheritdoc}
          */
-        protected function wakeupReflection(ClassMetadataInterface $class, ReflectionService $reflService)
+        protected function wakeupReflection(ClassMetadataInterface $class, ReflectionService $reflService): void
         {
             if ($class instanceof ClassMetadata) {
                 $class->wakeupReflectionWithInstantiator($reflService, new Instantiator($this->dispatcher));
@@ -49,7 +49,7 @@ if (interface_exists(\Doctrine\Persistence\Mapping\ClassMetadata::class)) {
             $class->wakeupReflection($reflService);
         }
 
-        public function setEntityManager(EntityManagerInterface $em)
+        public function setEntityManager(EntityManagerInterface $em): void
         {
             $this->entityManager = $em;
             parent::setEntityManager($em);
@@ -72,7 +72,7 @@ if (interface_exists(\Doctrine\Persistence\Mapping\ClassMetadata::class)) {
         /**
          * {@inheritdoc}
          */
-        public function newClassMetadataInstance($className)
+        public function newClassMetadataInstance($className): ClassMetadata
         {
             return new ClassMetadata($className, new Instantiator($this->dispatcher), $this->entityManager->getConfiguration()->getNamingStrategy());
         }
@@ -85,7 +85,7 @@ if (interface_exists(\Doctrine\Persistence\Mapping\ClassMetadata::class)) {
         /**
          * {@inheritdoc}
          */
-        protected function wakeupReflection(OldClassMetadataInterface $class, ReflectionService $reflService)
+        protected function wakeupReflection(OldClassMetadataInterface $class, ReflectionService $reflService): void
         {
             if ($class instanceof ClassMetadata) {
                 $class->wakeupReflectionWithInstantiator($reflService, new Instantiator($this->dispatcher));
@@ -96,7 +96,7 @@ if (interface_exists(\Doctrine\Persistence\Mapping\ClassMetadata::class)) {
             $class->wakeupReflection($reflService);
         }
 
-        public function setEntityManager(EntityManagerInterface $em)
+        public function setEntityManager(EntityManagerInterface $em): void
         {
             $this->entityManager = $em;
             parent::setEntityManager($em);

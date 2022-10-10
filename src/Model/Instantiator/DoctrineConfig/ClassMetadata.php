@@ -29,7 +29,7 @@ class ClassMetadata extends BaseClassMetadata
     /**
      * {@inheritdoc}
      */
-    public function newInstance()
+    public function newInstance(): object
     {
         return $this->instantiator->instantiate(parent::newInstance($this->name));
     }
