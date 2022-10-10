@@ -149,7 +149,7 @@ if (method_exists(TraceableEventDispatcher::class, 'preDispatch')) {
     class DomainEventDataCollector extends AbstractDomainEventDataCollector
     {
         // Compatibility layer with Sf 4.3 & 4.4
-        public function collect(Request $request, Response $response /*, \Throwable $exception = null */)
+        public function collect(Request $request, Response $response /* , \Throwable $exception = null */)
         {
             $this->currentRequest = $this->requestStack->getMasterRequest() !== $request ? $request : null;
             $this->data = [

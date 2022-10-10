@@ -6,6 +6,7 @@ use Biig\Component\Domain\Integration\Symfony\DependencyInjection\CompilerPass\I
 use Biig\Component\Domain\Integration\Symfony\DependencyInjection\EntityManagerConfigurator;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -13,6 +14,8 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class InsertDispatcherInClassMetadataFactoryCompilerPassTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testItIsASymfonyCompilerPass()
     {
         $pass = new InsertDispatcherInClassMetadataFactoryCompilerPass();

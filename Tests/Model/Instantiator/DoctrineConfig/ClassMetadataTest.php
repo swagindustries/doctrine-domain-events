@@ -7,9 +7,12 @@ use Biig\Component\Domain\Event\DomainEventDispatcher;
 use Biig\Component\Domain\Model\Instantiator\DoctrineConfig\ClassMetadata;
 use Biig\Component\Domain\Model\Instantiator\DoctrineConfig\Instantiator;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class ClassMetadataTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var ClassMetadata
      */

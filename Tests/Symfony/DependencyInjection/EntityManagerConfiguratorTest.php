@@ -8,9 +8,12 @@ use Biig\Component\Domain\Model\Instantiator\DoctrineConfig\ClassMetadataFactory
 use Doctrine\Bundle\DoctrineBundle\ManagerConfigurator;
 use Doctrine\ORM\EntityManager;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class EntityManagerConfiguratorTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testItInsertsTheDispatcher()
     {
         $entityManager = $this->prophesize(EntityManager::class);

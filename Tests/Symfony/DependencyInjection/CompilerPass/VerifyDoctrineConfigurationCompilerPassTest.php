@@ -7,6 +7,7 @@ use Biig\Component\Domain\Exception\InvalidConfigurationException;
 use Biig\Component\Domain\Integration\Symfony\DependencyInjection\CompilerPass\VerifyDoctrineConfigurationCompilerPass;
 use Doctrine\ORM\Configuration;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -14,6 +15,8 @@ use Symfony\Component\DependencyInjection\Definition;
 
 class VerifyDoctrineConfigurationCompilerPassTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testItIsASymfonyCompilerPass()
     {
         $pass = new VerifyDoctrineConfigurationCompilerPass();

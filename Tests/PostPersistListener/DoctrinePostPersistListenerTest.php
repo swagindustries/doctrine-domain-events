@@ -11,9 +11,12 @@ use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Event\PostFlushEventArgs;
 use Doctrine\ORM\UnitOfWork;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class DoctrinePostPersistListenerTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testItCallPersistForEachFlushedModel()
     {
         $model = new FakeModel();

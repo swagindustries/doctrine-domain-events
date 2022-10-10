@@ -6,6 +6,7 @@ use Biig\Component\Domain\Integration\Symfony\DependencyInjection\CompilerPass\E
 use Biig\Component\Domain\Integration\Symfony\Serializer\DomainDenormalizer;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -13,6 +14,8 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class EnableDomainDenormalizerCompilerPassTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testItIsASymfonyCompilerPass()
     {
         $pass = new EnableDomainDenormalizerCompilerPass();

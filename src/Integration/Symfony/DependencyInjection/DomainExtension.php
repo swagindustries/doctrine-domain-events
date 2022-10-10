@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class DomainExtension extends Extension implements PrependExtensionInterface
 {
-    const DOMAIN_RULE_TAG = 'biig_domain.rule';
+    public const DOMAIN_RULE_TAG = 'biig_domain.rule';
 
     public function load(array $configs, ContainerBuilder $container)
     {
