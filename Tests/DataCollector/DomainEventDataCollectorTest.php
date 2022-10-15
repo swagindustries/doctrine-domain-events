@@ -19,7 +19,7 @@ class DomainEventDataCollectorTest extends TestCase
     {
         $dispatcher = $this->prophesize(TraceableDomainEventDispatcher::class);
         $stack = $this->prophesize(RequestStack::class);
-        $stack->getMasterRequest()->shouldBeCalled()->willReturn($request = $this->prophesize(Request::class)->reveal());
+        $stack->getMainRequest()->shouldBeCalled()->willReturn($request = $this->prophesize(Request::class)->reveal());
 
         $collector = new DomainEventDataCollector($dispatcher->reveal(), $stack->reveal());
         $collector->collect($request, $this->prophesize(Response::class)->reveal());

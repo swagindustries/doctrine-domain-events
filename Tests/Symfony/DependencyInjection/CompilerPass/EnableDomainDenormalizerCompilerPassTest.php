@@ -34,15 +34,15 @@ class EnableDomainDenormalizerCompilerPassTest extends TestCase
         $compilerPass->process($this->getContainerMock(false, true));
     }
 
-    private function getContainerMock($apiPlatform = false, $symfonySerializer = false)
+    private function getContainerMock(bool $apiPlatform = false, $symfonySerializer = false)
     {
         $container = $this->prophesize(ContainerBuilder::class);
         $definition = $this->prophesize(Definition::class);
 
-        $container->hasDefinition('api_platform.jsonld.normalizer.item')->willReturn($apiPlatform ? $apiPlatform : []);
-        $container->hasDefinition('api_platform.serializer.normalizer.item')->willReturn($apiPlatform ? $apiPlatform : []);
-        $container->hasDefinition('api_platform.hal.normalizer.item')->willReturn($apiPlatform ? $apiPlatform : []);
-        $container->hasDefinition('serializer.normalizer.object')->willReturn($symfonySerializer ? $symfonySerializer : []);
+        $container->hasDefinition('api_platform.jsonld.normalizer.item')->willReturn($apiPlatform);
+        $container->hasDefinition('api_platform.serializer.normalizer.item')->willReturn($apiPlatform);
+        $container->hasDefinition('api_platform.hal.normalizer.item')->willReturn($apiPlatform);
+        $container->hasDefinition('serializer.normalizer.object')->willReturn($symfonySerializer);
 
         if ($apiPlatform) {
             //api_platform.jsonld.normalizer.item

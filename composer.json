@@ -19,7 +19,8 @@
         "doctrine/orm": "^2.6.3",
         "friendsofphp/php-cs-fixer": "^3.11.0",
         "symfony/symfony": "^4.3 || ^5.0 || ^6.0",
-        "phpspec/prophecy-phpunit": "^2.0.1"
+        "phpspec/prophecy-phpunit": "^2.0.1",
+        "monolog/monolog": "^2.8.0 || ^3.2.0"
     },
     "conflict": {
         "doctrine/orm": "<2.6.3"

@@ -151,7 +151,7 @@ if (method_exists(TraceableEventDispatcher::class, 'preDispatch')) {
         // Compatibility layer with Sf 4.3 & 4.4
         public function collect(Request $request, Response $response /* , \Throwable $exception = null */)
         {
-            $this->currentRequest = $this->requestStack->getMasterRequest() !== $request ? $request : null;
+            $this->currentRequest = $this->requestStack->getMainRequest() !== $request ? $request : null;
             $this->data = [
                 'called_listeners' => [],
                 'called_delayed_listeners' => [],
@@ -164,7 +164,7 @@ if (method_exists(TraceableEventDispatcher::class, 'preDispatch')) {
     {
         public function collect(Request $request, Response $response, \Throwable $exception = null)
         {
-            $this->currentRequest = $this->requestStack->getMasterRequest() !== $request ? $request : null;
+            $this->currentRequest = $this->requestStack->getMainRequest() !== $request ? $request : null;
             $this->data = [
                 'called_listeners' => [],
                 'called_delayed_listeners' => [],
