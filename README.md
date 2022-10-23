@@ -9,9 +9,9 @@ This library is design to help you to build your application with a Domain Desig
 
 It is well integrated with:
 
-- Symfony >= 4.3 (for >=3.3 compatibility, install the version 1.5 of the domain component)
+- Symfony >= 5.5 (for >=4.4 compatibility, install the version 2.2 of Doctrine domain events)
 - ApiPlatform >= 2.1
-- Doctrine >=2.5
+- Doctrine >= 2.5
 - PHP >= 7.4
 
 But you can use it with any PHP project.
