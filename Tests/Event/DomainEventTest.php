@@ -29,10 +29,4 @@ class DomainEventTest extends TestCase
         $event->setDelayed();
         $this->assertTrue($event->isDelayed());
     }
-
-    public function testItThrowsAnErrorIfOrignalEventIsNotAnEvent()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $event = new DomainEvent(null, [], 'foo');
-    }
 }

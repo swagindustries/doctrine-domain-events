@@ -9,8 +9,9 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface;
+use Symfony\Component\VarDumper\Cloner\Data;
 
-abstract class AbstractDomainEventDataCollector extends DataCollector implements LateDataCollectorInterface
+class DomainEventDataCollector extends DataCollector implements LateDataCollectorInterface
 {
     public const NAME = 'biig_domain.domain_event_data_collector';
 
@@ -38,18 +39,28 @@ abstract class AbstractDomainEventDataCollector extends DataCollector implements
         $this->requestStack = $requestStack;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return self::NAME;
     }
 
-    public function reset()
+    public function reset(): void
     {
         $this->data = [];
         $this->dispatcher->reset();
     }
 
-    public function lateCollect()
+    public function collect(Request $request, Response $response, \Throwable $exception = null)
+    {
+        $this->currentRequest = $this->requestStack->getMainRequest() !== $request ? $request : null;
+        $this->data = [
+            'called_listeners' => [],
+            'called_delayed_listeners' => [],
+            'not_called_listeners' => [],
+        ];
+    }
+
+    public function lateCollect(): void
     {
         $calledListeners = $this->dispatcher->getCalledListeners($this->currentRequest);
         $calledDelayedListeners = $this->dispatcher->getDelayedListenersCalled();
@@ -95,7 +106,7 @@ abstract class AbstractDomainEventDataCollector extends DataCollector implements
      *
      * @see TraceableEventDispatcher
      */
-    public function setCalledListeners(array $listeners)
+    public function setCalledListeners(array $listeners): void
     {
         $this->data['called_listeners'] = $listeners;
     }
@@ -135,41 +146,12 @@ abstract class AbstractDomainEventDataCollector extends DataCollector implements
     /**
      * Gets the not called listeners.
      *
-     * @return array
-     *
      * @see TraceableEventDispatcher
+     *
+     * @return array|Data
      */
     public function getNotCalledListeners()
     {
         return $this->data['not_called_listeners'] ?? [];
-    }
-}
-
-if (method_exists(TraceableEventDispatcher::class, 'preDispatch')) {
-    class DomainEventDataCollector extends AbstractDomainEventDataCollector
-    {
-        // Compatibility layer with Sf 4.3 & 4.4
-        public function collect(Request $request, Response $response /* , \Throwable $exception = null */)
-        {
-            $this->currentRequest = $this->requestStack->getMainRequest() !== $request ? $request : null;
-            $this->data = [
-                'called_listeners' => [],
-                'called_delayed_listeners' => [],
-                'not_called_listeners' => [],
-            ];
-        }
-    }
-} else {
-    class DomainEventDataCollector extends AbstractDomainEventDataCollector
-    {
-        public function collect(Request $request, Response $response, \Throwable $exception = null)
-        {
-            $this->currentRequest = $this->requestStack->getMainRequest() !== $request ? $request : null;
-            $this->data = [
-                'called_listeners' => [],
-                'called_delayed_listeners' => [],
-                'not_called_listeners' => [],
-            ];
-        }
     }
 }
