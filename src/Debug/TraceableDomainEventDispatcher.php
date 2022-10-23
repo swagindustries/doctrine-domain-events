@@ -10,10 +10,9 @@ use Biig\Component\Domain\Rule\PostPersistDomainRuleInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcher;
 use Symfony\Component\EventDispatcher\Event;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
 
-abstract class AbstractTraceableDomainEventDispatcher extends TraceableEventDispatcher implements DomainEventDispatcherInterface
+class TraceableDomainEventDispatcher extends TraceableEventDispatcher implements DomainEventDispatcherInterface
 {
     /**
      * @var array
@@ -89,61 +88,21 @@ abstract class AbstractTraceableDomainEventDispatcher extends TraceableEventDisp
     {
         return $this->delayedListenersCalled;
     }
-}
-if (method_exists(TraceableEventDispatcher::class, 'preDispatch')) {
-    // BC Layer for Sf 4.3 & 4.4
-    class TraceableDomainEventDispatcher extends AbstractTraceableDomainEventDispatcher
+
+    /**
+     * Dispatches an event to all registered listeners.
+     *
+     * @param object      $event     The event to pass to the event handlers/listeners
+     * @param string|null $eventName The name of the event to dispatch. If not supplied,
+     *                               the class of $event should be used instead.
+     *
+     * @return object The passed $event MUST be returned
+     */
+    public function dispatch(object $event, string $eventName = null): object
     {
-        /**
-         * Dispatches an event to all registered listeners.
-         *
-         * @param object      $event     The event to pass to the event handlers/listeners
-         * @param string|null $eventName The name of the event to dispatch. If not supplied,
-         *                               the class of $event should be used instead.
-         *
-         * @return object The passed $event MUST be returned
-         */
-        public function dispatch($event /* , string $eventName = null */) // Compatibility layer with Sf 4.3 & 4.4
-        {
-            $eventName = 1 < \func_num_args() ? func_get_arg(1) : null;
+        $eventName = $eventName ?? get_class($event);
+        $this->eventsFired[] = $eventName;
 
-            if (\is_object($event)) {
-                $eventName = $eventName ?? \get_class($event);
-            } else {
-                @trigger_error(sprintf('Calling the "%s::dispatch()" method with the event name as first argument is deprecated since Symfony 4.3, pass it second and provide the event object first instead.', EventDispatcherInterface::class), E_USER_DEPRECATED);
-                $swap = $event;
-                $event = $eventName ?? new Event();
-                $eventName = $swap;
-
-                if (!$event instanceof Event) {
-                    throw new \TypeError(sprintf('Argument 1 passed to "%s::dispatch()" must be an instance of "%s", "%s" given.', EventDispatcherInterface::class, Event::class, \is_object($event) ? \get_class($event) : \gettype($event)));
-                }
-            }
-
-            $eventName = $eventName ?? get_class($event);
-            $this->eventsFired[] = $eventName;
-
-            return parent::dispatch($event, $eventName);
-        }
-    }
-} else {
-    class TraceableDomainEventDispatcher extends AbstractTraceableDomainEventDispatcher
-    {
-        /**
-         * Dispatches an event to all registered listeners.
-         *
-         * @param object      $event     The event to pass to the event handlers/listeners
-         * @param string|null $eventName The name of the event to dispatch. If not supplied,
-         *                               the class of $event should be used instead.
-         *
-         * @return object The passed $event MUST be returned
-         */
-        public function dispatch(object $event, string $eventName = null): object
-        {
-            $eventName = $eventName ?? get_class($event);
-            $this->eventsFired[] = $eventName;
-
-            return parent::dispatch($event, $eventName);
-        }
+        return parent::dispatch($event, $eventName);
     }
 }
