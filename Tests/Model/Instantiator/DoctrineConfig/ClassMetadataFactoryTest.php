@@ -12,9 +12,12 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMSetup;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class ClassMetadataFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testItIsAnInstanceOfDoctrineClassMetadataFactory()
     {
         $factory = new ClassMetadataFactory();

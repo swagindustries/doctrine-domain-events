@@ -11,9 +11,12 @@ use Biig\Component\Domain\Rule\DomainRuleInterface;
 use Biig\Component\Domain\Rule\PostPersistDomainRuleInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class TraceableDomainEventDispatcherTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testItSetsFiredEventOnDispatch()
     {
         $tdispatcher = new TraceableDomainEventDispatcher(new DomainEventDispatcher());

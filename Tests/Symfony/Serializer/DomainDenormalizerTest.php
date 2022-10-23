@@ -7,12 +7,15 @@ use Biig\Component\Domain\Event\DomainEventDispatcher;
 use Biig\Component\Domain\Integration\Symfony\Serializer\DomainDenormalizer;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class DomainDenormalizerTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var ObjectNormalizer
      */

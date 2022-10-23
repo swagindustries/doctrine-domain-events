@@ -16,6 +16,7 @@ use Doctrine\ORM\Event\PostFlushEventArgs;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\UnitOfWork;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Biig\Component\Domain\Tests\TestKernel;
@@ -25,6 +26,8 @@ require_once __DIR__ . '/../fixtures/getComplexClassHierarchyDomainModel.php';
 
 class EntitiesHasDispatcherCheckerTest extends KernelTestCase
 {
+    use ProphecyTrait;
+
     /** @var EntityManagerInterface|ObjectProphecy */
     private $entityManger;
 

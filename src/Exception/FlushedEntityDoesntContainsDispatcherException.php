@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Biig\Component\Domain\Exception;
@@ -7,7 +8,7 @@ use Biig\Component\Domain\Event\DomainEventDispatcherInterface;
 
 class FlushedEntityDoesntContainsDispatcherException extends \LogicException
 {
-    public function __construct($idsAndValue, $className, string $message = "", int $code = 0, ?Throwable $previous = null)
+    public function __construct($idsAndValue, $className, string $message = '', int $code = 0, ?Throwable $previous = null)
     {
         $identity = "'$className with $idsAndValue";
 

@@ -1,17 +1,14 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Biig\Component\Domain\PostFlushListener;
 
 use Biig\Component\Domain\Event\DomainEventDispatcherInterface;
-use Biig\Component\Domain\Model\Instantiator\Instantiator;
-use Biig\Component\Domain\Model\ModelInterface;
 use Biig\Component\Domain\Exception\FlushedEntityDoesntContainsDispatcherException;
 use Biig\Component\Domain\Exception\InvalidArgumentException;
-use Doctrine\Common\Annotations\AnnotationReader;
+use Biig\Component\Domain\Model\ModelInterface;
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
 use Doctrine\ORM\Event\PostFlushEventArgs;
 
 final class EntitiesHasDispatcherChecker
@@ -53,14 +50,13 @@ final class EntitiesHasDispatcherChecker
         throw new FlushedEntityDoesntContainsDispatcherException($identifiers, $className);
     }
 
-
     private function objectPropertyThief(object $object, string $property)
     {
         if (property_exists($object, $property)) {
             // This method is copy/pasted from @see https://ocramius.github.io/blog/accessing-private-php-class-members-without-reflection/
             // It allow to retrieve a private property from object fastly
             // Reflection is slow, we don't want to annoy the developers :D
-            $sweetsThief = function ($object) use($property) {
+            $sweetsThief = function ($object) use ($property) {
                 return $object->{$property};
             };
             $sweetsThief = \Closure::bind($sweetsThief, null, $object);
@@ -77,7 +73,8 @@ final class EntitiesHasDispatcherChecker
                 // TODO when php 7.4 is the minimum version we could check that the property's type is DomainEventDispatcherInterface
 
                 return $propertyRef->getValue($object);
-            } catch (\ReflectionException $exception) {}
+            } catch (\ReflectionException $exception) {
+            }
         } while ($ref = $ref->getParentClass());
 
         throw new InvalidArgumentException("Property $property doesn't exists in class hierarchy.");
