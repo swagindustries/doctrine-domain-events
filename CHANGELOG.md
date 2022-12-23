@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.3.1] - 2022-12-23
+
+### Added
+
+- Ignore dispatcher in Symfony serializer (fix API Platform 2.7 & 3.0 doc) #17
+
 ## [2.3.0] - 2021-10-23
 
 ### Added
