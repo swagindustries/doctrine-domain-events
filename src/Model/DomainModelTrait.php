@@ -4,12 +4,14 @@ namespace Biig\Component\Domain\Model;
 
 use Biig\Component\Domain\Event\DomainEvent;
 use Biig\Component\Domain\Event\DomainEventDispatcherInterface;
+use Symfony\Component\Serializer\Annotation\Ignore;
 
 trait DomainModelTrait
 {
     /**
      * @var DomainEventDispatcherInterface
      */
+    #[Ignore]
     private $dispatcher;
 
     /**
