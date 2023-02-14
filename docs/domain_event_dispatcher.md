@@ -60,6 +60,15 @@ biig_domain:
         doctrine: ['default']
 ```
 
+> ⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+> 
+> Using PostPersistRule means that the flush of doctrine will (re)dispatch some events. If this is a great way to add features during your workflow...
+> This also means that using a Doctrine **flush** in a domain rule (even a different one) is something tricky.
+> 
+> However this package will not fail of end in infinite loop, it's 100% supported, but events order may be surprising.
+> 
+> ⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+
 
 ### Symfony Integration
 
