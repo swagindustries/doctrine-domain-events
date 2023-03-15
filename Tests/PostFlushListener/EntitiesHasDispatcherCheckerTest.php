@@ -14,6 +14,7 @@ use Biig\Component\Domain\Tests\Model\FakeDomainEventDispatcher;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\PostFlushEventArgs;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\Proxy\Proxy;
 use Doctrine\ORM\UnitOfWork;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -125,6 +126,18 @@ class EntitiesHasDispatcherCheckerTest extends KernelTestCase
         $subject = new EntitiesHasDispatcherChecker();
         $subject->postFlush($this->mockEvent([
             'someFqcn' => [getComplexModel(),],
+        ]));
+    }
+
+    public function testItDoesNothingWhenAProxyIsGiven()
+    {
+        $proxy = $this->prophesize(Proxy::class)->reveal();
+        $subject = new EntitiesHasDispatcherChecker();
+
+        $this->entityManger->getClassMetadata(Argument::cetera())->shouldNotBeCalled();
+
+        $subject->postFlush($this->mockEvent([
+            'someFqcn' => [$proxy],
         ]));
     }
 
