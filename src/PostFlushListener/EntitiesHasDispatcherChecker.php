@@ -10,6 +10,7 @@ use Biig\Component\Domain\Exception\InvalidArgumentException;
 use Biig\Component\Domain\Model\ModelInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\PostFlushEventArgs;
+use Doctrine\ORM\Proxy\Proxy;
 
 final class EntitiesHasDispatcherChecker
 {
@@ -27,7 +28,7 @@ final class EntitiesHasDispatcherChecker
 
     private function checkModelEntityHasDispatcher(object $entity, EntityManagerInterface $entityManager): void
     {
-        if (!$entity instanceof ModelInterface) {
+        if (!$entity instanceof ModelInterface || $entity instanceof Proxy) {
             return;
         }
 
