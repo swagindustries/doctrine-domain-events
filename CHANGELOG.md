@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+- Add new return types (for Symfony 6)
+- Add new context parameter for DomainDenormalizer
+
 ## [2.3.2] - 2023-03-15
 
 ### Fixed
