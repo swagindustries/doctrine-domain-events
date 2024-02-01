@@ -7,17 +7,16 @@ use Biig\Component\Domain\Event\DomainEvent;
 use Biig\Component\Domain\Event\DomainEventDispatcher;
 use Biig\Component\Domain\Exception\InvalidDomainEvent;
 use Biig\Component\Domain\Model\DomainModel;
-use Biig\Component\Domain\Model\Instantiator\DoctrineConfig\ClassMetadataFactory;
 use Biig\Component\Domain\PostPersistListener\DoctrinePostPersistListener;
 use Biig\Component\Domain\Rule\PostPersistDomainRuleInterface;
 use Biig\Component\Domain\Tests\fixtures\Entity\FakeModel;
+use Biig\Component\Domain\Tests\SetupDatabaseTrait;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\ORMSetup;
 use PHPUnit\Framework\TestCase;
 
 class DelayedListenerTest extends TestCase
 {
-    private $dbPath;
+    use SetupDatabaseTrait;
 
     public function testICanInstantiateDelayedListener()
     {
@@ -62,7 +61,7 @@ class DelayedListenerTest extends TestCase
     public function testItInsertInBddAfterFlushing()
     {
         $dispatcher = new DomainEventDispatcher();
-        $entityManager = $this->setupDatabase($dispatcher);
+        $entityManager = $this->setupDatabase($dispatcher, 'testItInsertInBddAfterFlushing');
 
         $model = new FakeModel();
         $model->setFoo('Model1');
@@ -104,7 +103,7 @@ class DelayedListenerTest extends TestCase
     {
         // Test setup
         $dispatcher = new DomainEventDispatcher();
-        $entityManager = $this->setupDatabase($dispatcher);
+        $entityManager = $this->setupDatabase($dispatcher, 'testItInsertInBddAfterFlushing');
 
         $model = new FakeModel();
         $model->setFoo(0);
@@ -121,35 +120,6 @@ class DelayedListenerTest extends TestCase
 
         $this->assertEquals(2, $model->getFoo());
         $this->dropDatabase();
-    }
-
-    private function setupDatabase(DomainEventDispatcher $dispatcher)
-    {
-        $this->dbPath = \sys_get_temp_dir() . '/testItInsertInBddAfterFlushing.' . \microtime() . '.sqlite';
-        copy(__DIR__ . '/../fixtures/dbtest/initial_fake_model.db', $this->dbPath);
-
-        $config = ORMSetup::createAnnotationMetadataConfiguration(array(__DIR__ . '/../fixtures/Entity'), true);
-        $config->setClassMetadataFactoryName(ClassMetadataFactory::class);
-        $conn = [
-            'driver' => 'pdo_sqlite',
-            'path' => $this->dbPath,
-        ];
-
-        $entityManager = EntityManager::create($conn, $config);
-        $entityManager->getEventManager()->addEventSubscriber(new DoctrinePostPersistListener($dispatcher));
-
-        $entityManager->getMetadataFactory()->setDispatcher($dispatcher);
-
-        return $entityManager;
-    }
-
-    private function dropDatabase()
-    {
-        if (!$this->dbPath) {
-            return;
-        }
-
-        @unlink($this->dbPath);
     }
 }
 

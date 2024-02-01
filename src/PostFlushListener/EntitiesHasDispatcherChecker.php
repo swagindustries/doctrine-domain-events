@@ -28,7 +28,7 @@ final class EntitiesHasDispatcherChecker
 
     private function checkModelEntityHasDispatcher(object $entity, EntityManagerInterface $entityManager): void
     {
-        if (!$entity instanceof ModelInterface || $entity instanceof Proxy) {
+        if (!$entity instanceof ModelInterface) {
             return;
         }
 
