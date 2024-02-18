@@ -50,7 +50,7 @@ class DomainEventDataCollector extends DataCollector implements LateDataCollecto
         $this->dispatcher->reset();
     }
 
-    public function collect(Request $request, Response $response, \Throwable $exception = null)
+    public function collect(Request $request, Response $response, ?\Throwable $exception = null)
     {
         $this->currentRequest = $this->requestStack->getMainRequest() !== $request ? $request : null;
         $this->data = [

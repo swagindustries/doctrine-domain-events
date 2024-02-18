@@ -8,8 +8,8 @@ framework:
     serializer: ~
     form: ~
     test: ~
-    annotations: ~
     assets: ~
+    property_access: ~
 
 doctrine:
     dbal:
@@ -25,7 +25,7 @@ doctrine:
         mappings:
             TestApplication:
                 is_bundle: false
-                type: annotation
+                type: attribute
                 dir: '%kernel.project_dir%/Tests/fixtures/Entity'
                 prefix: 'Biig\Component\Domain\Tests\fixtures\Entity'
                 alias: App

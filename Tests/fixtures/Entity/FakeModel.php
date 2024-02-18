@@ -3,23 +3,23 @@ namespace Biig\Component\Domain\Tests\fixtures\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity()
- * @ORM\Table(name="fake_model")
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'fake_model')]
 class FakeModel implements \Biig\Component\Domain\Model\ModelInterface
 {
     use \Biig\Component\Domain\Model\DomainModelTrait;
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id()]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /** @ORM\Column() */
+    #[ORM\Column(nullable: true)]
     private $foo;
+
+    #[ORM\OneToOne(targetEntity: FakeModelRelation::class)]
+    private FakeModelRelation|null $related = null;
+
     private $something;
 
     public function hasDispatcher()
@@ -27,44 +27,39 @@ class FakeModel implements \Biig\Component\Domain\Model\ModelInterface
         return null !== $this->dispatcher;
     }
 
-    /**
-     * @return int
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
-    public function getFoo()
+    public function getFoo(): string
     {
         return $this->foo;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getSomething()
+    public function getSomething(): mixed
     {
         return $this->something;
     }
 
-    /**
-     * @param mixed $something
-     */
-    public function setSomething($something)
+    public function setSomething(string $something)
     {
         $this->something = $something;
     }
 
-    /**
-     * @param string $foo
-     */
-    public function setFoo($foo)
+    public function setFoo(string $foo)
     {
         $this->foo = $foo;
+    }
+
+    public function getRelated(): ?FakeModelRelation
+    {
+        return $this->related;
+    }
+
+    public function setRelated(?FakeModelRelation $related): void
+    {
+        $this->related = $related;
     }
 
     /**

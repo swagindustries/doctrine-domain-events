@@ -20,15 +20,12 @@ class ClassMetadata extends BaseClassMetadata
      */
     private $instantiator;
 
-    public function __construct($entityName, InstantiatorInterface $instantiator, NamingStrategy $namingStrategy = null)
+    public function __construct($entityName, InstantiatorInterface $instantiator, ?NamingStrategy $namingStrategy = null)
     {
         parent::__construct($entityName, $namingStrategy);
         $this->instantiator = $instantiator;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function newInstance(): object
     {
         return $this->instantiator->instantiate(parent::newInstance($this->name));

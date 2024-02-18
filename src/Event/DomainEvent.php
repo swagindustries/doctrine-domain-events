@@ -14,7 +14,7 @@ class DomainEvent extends GenericEvent
      */
     private bool $delayed;
 
-    public function __construct($subject = null, $arguments = [], Event $originalEvent = null)
+    public function __construct($subject = null, $arguments = [], ?Event $originalEvent = null)
     {
         parent::__construct($subject, $arguments);
         $this->originalEvent = $originalEvent;

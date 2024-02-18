@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping\ClassMetadataFactory as BaseClassMetadataFactory;
 use Doctrine\Persistence\Mapping\ClassMetadata as ClassMetadataInterface;
 use Doctrine\Persistence\Mapping\ReflectionService;
 
-if (interface_exists(\Doctrine\Persistence\Mapping\ClassMetadata::class)) {
+if (interface_exists(ClassMetadataInterface::class)) {
     final class ClassMetadataFactory extends BaseClassMetadataFactory
     {
         /**
@@ -22,9 +22,6 @@ if (interface_exists(\Doctrine\Persistence\Mapping\ClassMetadata::class)) {
          */
         private $entityManager;
 
-        /**
-         * {@inheritdoc}
-         */
         public function newClassMetadataInstance($className): ClassMetadata
         {
             return new ClassMetadata($className, new Instantiator($this->dispatcher), $this->entityManager->getConfiguration()->getNamingStrategy());
@@ -35,9 +32,6 @@ if (interface_exists(\Doctrine\Persistence\Mapping\ClassMetadata::class)) {
             $this->dispatcher = $dispatcher;
         }
 
-        /**
-         * {@inheritdoc}
-         */
         protected function wakeupReflection(ClassMetadataInterface $class, ReflectionService $reflService): void
         {
             if ($class instanceof ClassMetadata) {
@@ -69,9 +63,6 @@ if (interface_exists(\Doctrine\Persistence\Mapping\ClassMetadata::class)) {
          */
         private $entityManager;
 
-        /**
-         * {@inheritdoc}
-         */
         public function newClassMetadataInstance($className): ClassMetadata
         {
             return new ClassMetadata($className, new Instantiator($this->dispatcher), $this->entityManager->getConfiguration()->getNamingStrategy());
@@ -82,9 +73,6 @@ if (interface_exists(\Doctrine\Persistence\Mapping\ClassMetadata::class)) {
             $this->dispatcher = $dispatcher;
         }
 
-        /**
-         * {@inheritdoc}
-         */
         protected function wakeupReflection(OldClassMetadataInterface $class, ReflectionService $reflService): void
         {
             if ($class instanceof ClassMetadata) {

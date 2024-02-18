@@ -27,9 +27,6 @@ class DoctrinePostPersistListener extends AbstractBridgeListener implements Even
         $this->modelsStageForFlush = [];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSubscribedEvents()
     {
         return ['onFlush', 'postFlush'];
