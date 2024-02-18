@@ -8,8 +8,8 @@ framework:
     serializer: ~
     form: ~
     test: ~
-    annotations: ~
     assets: ~
+    property_access: ~
 
 doctrine:
     dbal:

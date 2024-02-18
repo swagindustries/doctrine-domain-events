@@ -2,7 +2,7 @@
 
 namespace Biig\Component\Domain\Tests;
 
-use Biig\Component\Domain\Event\DomainEventDispatcher;
+use Biig\Component\Domain\Event\DomainEventDispatcherInterface;
 use Biig\Component\Domain\Model\Instantiator\DoctrineConfig\PostLoadDispatcherInjectionListener;
 use Biig\Component\Domain\PostPersistListener\DoctrinePostPersistListener;
 use Doctrine\ORM\EntityManager;
@@ -13,7 +13,7 @@ trait SetupDatabaseTrait
 {
     private $dbPath;
 
-    private function setupDatabase(DomainEventDispatcher $dispatcher, string $name): EntityManager
+    private function setupDatabase(DomainEventDispatcherInterface $dispatcher, string $name): EntityManager
     {
         $this->dbPath = \sys_get_temp_dir() . '/'.$name.'.' . \microtime() . '.sqlite';
         copy(__DIR__ . '/fixtures/dbtest/initial_fake_model.db', $this->dbPath);

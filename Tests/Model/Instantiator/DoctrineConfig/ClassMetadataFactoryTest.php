@@ -39,16 +39,16 @@ class ClassMetadataFactoryTest extends TestCase
 
     public function testItAllowToRetrieveDomainModel()
     {
-        $entityManager = $this->setupDatabase(new DomainEventDispatcher(), 'testItAllowToRetrieveDomainModel');
-
         $dispatcher = $this->prophesize(DomainEventDispatcherInterface::class);
         $dispatcher->dispatch(Argument::cetera())->shouldBeCalled();
 
-        $entityManager->getMetadataFactory()->setDispatcher($dispatcher->reveal());
+        $entityManager = $this->setupDatabase($dispatcher->reveal(), 'testItAllowToRetrieveDomainModel');
 
         $res = $entityManager->getRepository(FakeModel::class)->findAll();
 
-        reset($res)->doAction();
+        /** @var FakeModel $item */
+        $item = reset($res);
+        $item->doAction();
         $this->dropDatabase();
     }
 }
