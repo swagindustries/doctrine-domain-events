@@ -13,9 +13,6 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class DomainBundle extends Bundle
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getContainerExtension(): ?ExtensionInterface
     {
         return new DomainExtension();

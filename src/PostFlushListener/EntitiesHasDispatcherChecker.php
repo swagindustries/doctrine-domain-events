@@ -10,7 +10,6 @@ use Biig\Component\Domain\Exception\InvalidArgumentException;
 use Biig\Component\Domain\Model\ModelInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\PostFlushEventArgs;
-use Doctrine\ORM\Proxy\Proxy;
 
 final class EntitiesHasDispatcherChecker
 {

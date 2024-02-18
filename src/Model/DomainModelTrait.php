@@ -38,7 +38,7 @@ trait DomainModelTrait
         }
     }
 
-    protected function dispatch(DomainEvent $event, string $name = null)
+    protected function dispatch(DomainEvent $event, ?string $name = null)
     {
         if (null === $this->dispatcher) {
             $eventToStack['event'] = $event;
