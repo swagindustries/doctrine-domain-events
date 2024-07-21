@@ -10,9 +10,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class VerifyDoctrineConfigurationCompilerPass implements CompilerPassInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function process(ContainerBuilder $container)
     {
         if ($container->getParameter('biig_domain_doctrine_domain_event_instantiator')) {

@@ -32,10 +32,6 @@ final class DomainDenormalizer implements NormalizerInterface, DenormalizerInter
         $this->dispatcher = $dispatcher;
     }
 
-    /**
-     * {@inheritdoc}
-     * @return mixed
-     */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
         $domain = $this->decorated->denormalize($data, $class, $format, $context);
@@ -47,16 +43,12 @@ final class DomainDenormalizer implements NormalizerInterface, DenormalizerInter
         return $domain;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
         return $this->decorated->supportsDenormalization($data, $type, $format, $context);
     }
 
     /**
-     * {@inheritdoc}
      * @return array|string|int|float|bool|\ArrayObject|null
      */
     public function normalize($object, $format = null, array $context = [])
@@ -64,9 +56,6 @@ final class DomainDenormalizer implements NormalizerInterface, DenormalizerInter
         return $this->decorated->normalize($object, $format, $context);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
         return $this->decorated->supportsNormalization($data, $format, $context);

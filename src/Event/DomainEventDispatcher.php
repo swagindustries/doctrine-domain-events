@@ -78,7 +78,7 @@ final class DomainEventDispatcher extends EventDispatcher implements DomainEvent
      *
      * @return Event
      */
-    public function dispatch($event, string $eventName = null): object
+    public function dispatch($event, ?string $eventName = null): object
     {
         $event = parent::dispatch($event, $eventName);
 
