@@ -13,3 +13,9 @@ services:
         alias: Biig\Component\Domain\Model\Instantiator\Instantiator
         public: true
 
+    biig_domain.postload_subscriber:
+        class: Biig\Component\Domain\Model\Instantiator\DoctrineConfig\PostLoadDispatcherInjectionListener
+        arguments:
+            - '@biig_domain.dispatcher'
+        tags:
+            - { name: doctrine.event_subscriber }

@@ -9,11 +9,9 @@ interface DomainModelInstantiatorInterface
      * We do not inherit from the InstantiatorInterface to allow the usage of this component without doctrine.
      * This is also the reason to not have arguments in this method.
      *
-     * @param string $className
-     *
-     * @return object
+     * @param class-string $className
      */
-    public function instantiate($className);
+    public function instantiate(string $className): object;
 
     /**
      * @param array ...$args

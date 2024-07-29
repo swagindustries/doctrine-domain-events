@@ -19,7 +19,6 @@ trait SetupDatabaseTrait
         copy(__DIR__ . '/fixtures/dbtest/initial_fake_model.db', $this->dbPath);
 
         $config = ORMSetup::createAttributeMetadataConfiguration(array(__DIR__ . '/../fixtures/Entity'), true);
-        $config->setClassMetadataFactoryName(ClassMetadataFactory::class);
         $conn = [
             'driver' => 'pdo_sqlite',
             'path' => $this->dbPath,
@@ -28,8 +27,6 @@ trait SetupDatabaseTrait
         $entityManager = EntityManager::create($conn, $config);
         $entityManager->getEventManager()->addEventSubscriber(new DoctrinePostPersistListener($dispatcher));
         $entityManager->getEventManager()->addEventSubscriber(new PostLoadDispatcherInjectionListener($dispatcher));
-
-        $entityManager->getMetadataFactory()->setDispatcher($dispatcher);
 
         return $entityManager;
     }

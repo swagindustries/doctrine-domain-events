@@ -14,9 +14,6 @@ class Configuration implements ConfigurationInterface
         $treeBuilder
             ->getRootNode()
             ->children()
-                ->booleanNode('override_doctrine_instantiator')
-                    ->defaultTrue()
-                ->end()
                 ->arrayNode('entity_managers')
                     ->scalarPrototype()->end()
                 ->end()

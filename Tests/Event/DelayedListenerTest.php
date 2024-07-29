@@ -7,7 +7,6 @@ use Biig\Component\Domain\Event\DomainEvent;
 use Biig\Component\Domain\Event\DomainEventDispatcher;
 use Biig\Component\Domain\Exception\InvalidDomainEvent;
 use Biig\Component\Domain\Model\DomainModel;
-use Biig\Component\Domain\PostPersistListener\DoctrinePostPersistListener;
 use Biig\Component\Domain\Rule\PostPersistDomainRuleInterface;
 use Biig\Component\Domain\Tests\fixtures\Entity\FakeModel;
 use Biig\Component\Domain\Tests\SetupDatabaseTrait;
@@ -103,7 +102,7 @@ class DelayedListenerTest extends TestCase
     {
         // Test setup
         $dispatcher = new DomainEventDispatcher();
-        $entityManager = $this->setupDatabase($dispatcher, 'testItInsertInBddAfterFlushing');
+        $entityManager = $this->setupDatabase($dispatcher, 'testItDoesNotExecuteManyTimesSameEvent');
 
         $model = new FakeModel();
         $model->setFoo(0);

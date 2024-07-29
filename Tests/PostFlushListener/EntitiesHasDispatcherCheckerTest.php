@@ -42,7 +42,7 @@ class EntitiesHasDispatcherCheckerTest extends KernelTestCase
     {
         self::bootKernel(['debug' => true]);
         // You should not create your entites this way in your own code !
-        // Use the Biig\Component\Domain\Model\Instantiator\Instantiator service to instanciate your entities.
+        // Use the Biig\Component\Domain\Model\Instantiator\Instantiator service to instantiate your entities.
         $model = new FakeModel();
 
         $this->expectException(FlushedEntityDoesntContainsDispatcherException::class);

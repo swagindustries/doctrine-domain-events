@@ -2,7 +2,6 @@
 
 namespace Biig\Component\Domain\Integration\Symfony\DependencyInjection;
 
-use Biig\Component\Domain\Model\Instantiator\DoctrineConfig\ClassMetadataFactory;
 use Biig\Component\Domain\PostPersistListener\DoctrinePostPersistListener;
 use Biig\Component\Domain\Rule\RuleInterface;
 use Symfony\Component\Config\FileLocator;
@@ -31,8 +30,6 @@ class DomainExtension extends Extension implements PrependExtensionInterface
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('biig_domain_doctrine_domain_event_instantiator', $config['override_doctrine_instantiator']);
-
         $container->registerForAutoconfiguration(RuleInterface::class)->addTag(self::DOMAIN_RULE_TAG);
 
         $container->setParameter('biig_domain.entity_managers', $config['entity_managers']);
@@ -55,14 +52,6 @@ class DomainExtension extends Extension implements PrependExtensionInterface
             // Pre-process the configuration
             $configs = $container->getExtensionConfig($this->getAlias());
             $config = $this->processConfiguration(new Configuration(), $configs);
-
-            // This is true by default
-            if ($config['override_doctrine_instantiator']) {
-                $doctrineConfig = $container->getExtensionConfig('doctrine');
-                $doctrineClassMetadataFactoryConfig = $this->buildClassMetadataFactoryConfig($doctrineConfig);
-
-                $container->prependExtensionConfig('doctrine', $doctrineClassMetadataFactoryConfig);
-            }
         }
     }
 
@@ -83,26 +72,5 @@ class DomainExtension extends Extension implements PrependExtensionInterface
                 ->addTag('doctrine.event_subscriber', ['connection' => $connection])
             ;
         }
-    }
-
-    private function buildClassMetadataFactoryConfig(array $doctrineConfig)
-    {
-        $doctrineClassMetadataFactoryConfig = [
-            'orm' => [
-                'entity_managers' => [
-                    'default' => [
-                        'class_metadata_factory_name' => ClassMetadataFactory::class,
-                    ],
-                ],
-            ],
-        ];
-
-        if (isset($doctrineConfig[0]['orm']['entity_managers'])) {
-            foreach ($doctrineConfig[0]['orm']['entity_managers'] as $entityManagerName => $entityManagerConf) {
-                $doctrineClassMetadataFactoryConfig['orm']['entity_managers'][$entityManagerName]['class_metadata_factory_name'] = ClassMetadataFactory::class;
-            }
-        }
-
-        return $doctrineClassMetadataFactoryConfig;
     }
 }

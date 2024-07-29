@@ -25,6 +25,7 @@ class DomainExtensionTest extends TestCase
         $extension->load($config, $container);
 
         $array = [
+            'biig_domain.postload_subscriber' => [[]],
             "biig_domain.post_persist_listener.doctrine_default" => [
                 [
                     "connection" => "default"
