@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- New way of injecting the dispatcher to entities. This is great and also supports proxies! (which was previously a limitation)
+
 ## [2.3.3] - 2023-05-16
 
 ### Added
