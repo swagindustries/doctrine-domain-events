@@ -13,9 +13,8 @@ services:
         alias: Biig\Component\Domain\Model\Instantiator\Instantiator
         public: true
 
-    biig_domain.postload_subscriber:
+    # Tags added dynamically by the RegisterListenersCompilerPass
+    biig_domain.postload_listener:
         class: Biig\Component\Domain\Model\Instantiator\DoctrineConfig\PostLoadDispatcherInjectionListener
         arguments:
             - '@biig_domain.dispatcher'
-        tags:
-            - { name: doctrine.event_subscriber }

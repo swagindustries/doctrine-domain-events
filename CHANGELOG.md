@@ -6,9 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Complete support for Symfony 7
+
 ### Changed
 
 - New way of injecting the dispatcher to entities. This is great and also supports proxies! (which was previously a limitation)
+- The easy crew got us! The configuration is now deadly simple. Look at the UPGRADE guide to learn how to move from v2 to v3.
 
 ## [2.3.3] - 2023-05-16
 

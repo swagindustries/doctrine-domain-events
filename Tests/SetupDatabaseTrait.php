@@ -25,8 +25,8 @@ trait SetupDatabaseTrait
         ];
 
         $entityManager = EntityManager::create($conn, $config);
-        $entityManager->getEventManager()->addEventSubscriber(new DoctrinePostPersistListener($dispatcher));
-        $entityManager->getEventManager()->addEventSubscriber(new PostLoadDispatcherInjectionListener($dispatcher));
+        $entityManager->getEventManager()->addEventListener(['postFlush', 'onFlush'], new DoctrinePostPersistListener($dispatcher));
+        $entityManager->getEventManager()->addEventListener(['postLoad'], new PostLoadDispatcherInjectionListener($dispatcher));
 
         return $entityManager;
     }

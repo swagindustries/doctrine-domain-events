@@ -113,12 +113,13 @@ Learn more about [Symfony Integration](/docs/domain_event_dispatcher.md#symfony-
 Versions
 --------
 
-| Version | Status     | Documentation  | Symfony Version | PHP Version |
-|---------|------------|----------------|-----------------|-------------|
-| 1.x     | Deprecated | [v1][v1-doc]   | >= 3.3 && <5    | >= 7.1      |
-| 2.x     | Maintained | [v2][v2-doc]   | >= 4.3          | >= 7.4      |
-| 3.x     | Latest     | [v3][v3-doc]   | >= 5.4          | >= 8.1      |
+| Version | Status       | Documentation | Symfony Version | PHP Version | Misc                            |
+|---------|--------------|---------------|-----------------|-------------|---------------------------------|
+| 1.x     | Unmaintained | [v1][v1-doc]  | >= 3.3 && <5    | >= 7.1      |                                 |
+| 2.x     | Maintained   | [v2][v2-doc]  | >= 4.3          | >= 7.4      |                                 |
+| 3.x     | Latest       | [v3][v3-doc]  | >= 5.4          | >= 8.1      | See [UPGRADE](v3-upgrade) guide |
 
 [v1-doc]: https://github.com/swagindustries/doctrine-domain-events/tree/v1.5.2/docs
 [v2-doc]: https://github.com/swagindustries/doctrine-domain-events/tree/v2.3.3/docs
 [v3-docs]: https://github.com/swagindustries/doctrine-domain-events/tree/master/docs
+[v3-upgrade]: https://github.com/swagindustries/doctrine-domain-events/tree/master/UPGRADE.md

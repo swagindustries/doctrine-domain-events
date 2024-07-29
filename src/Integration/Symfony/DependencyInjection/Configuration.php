@@ -17,14 +17,6 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('entity_managers')
                     ->scalarPrototype()->end()
                 ->end()
-                ->arrayNode('persist_listeners')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->arrayNode('doctrine')
-                            ->scalarPrototype()->end()
-                        ->end()
-                    ->end()
-                ->end()
             ->end()
         ;
 

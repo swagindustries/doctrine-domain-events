@@ -104,13 +104,8 @@ _Notice: the priority field is optional as well as method._
 
 ```yaml
 biig_domain:
-    # By default, it will override the doctrine instantiator only for
-    # the "default" entity manager of your application. You can specify
-    # many entity managers if you want.
-    entity_managers: []
-    
-    # Post persist events are not activated by default, you need to enable the post persist listeners
-    persist_listeners:
-        # As doctrine supports many connections, you need to enable your connections one by one
-        doctrine: ['default']
+    # By default, the bundle will be active on all connections registered,
+    # but you can specify explicitly which connections it should be enabled on.
+    # Defaults to empty array []
+    entity_managers: ['default']
 ```
