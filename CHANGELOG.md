@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Complete support for Symfony 7
 - Support for Doctrine ORM 3
+- Remove limitations on usage on proxies! :tada:
 
 ### Changed
 
