@@ -78,6 +78,21 @@ As your model needs a dispatcher you need to call the `setDispatcher()` method a
 
 > It doesn't use the constructor to add the dispatcher because in PHP you can create objects without the constructor. For instance, that's what Doctrine does.
 
+```php
+use Biig\Component\Domain\Model\Instantiator\Instantiator;
+use Doctrine\ORM\EntityManager;
+
+class SomeController
+{
+    public function index(Instantiator $instantiator, EntityManager $entityManager)
+    {
+        $model = $instantiator->instantiate(YourModel::class);
+        $entityManager->persist($model);
+        $entityManager->flush();
+    }
+}
+```
+
 Integration to Symfony
 ----------------------
 
@@ -98,10 +113,13 @@ Learn more about [Symfony Integration](/docs/domain_event_dispatcher.md#symfony-
 Versions
 --------
 
-| Version | Status     | Documentation | Symfony Version | PHP Version |
-|---------|------------|---------------| --------------- | ------------|
-| 1.x     | Maintained | [v1][v1-doc]  | '>= 3.3 && <5'  | '>= 7.1'    |
-| 2.x     | Latest     | [v2][v2-doc]  | '>= 4.3'        | '>= 7.1'    |
+| Version | Status       | Documentation | Symfony Version | PHP Version | Misc                            |
+|---------|--------------|---------------|-----------------|-------------|---------------------------------|
+| 1.x     | Unmaintained | [v1][v1-doc]  | >= 3.3 && <5    | >= 7.1      |                                 |
+| 2.x     | Maintained   | [v2][v2-doc]  | >= 4.3          | >= 7.4      |                                 |
+| 3.x     | Latest       | [v3][v3-doc]  | >= 5.4          | >= 8.1      | See [UPGRADE](v3-upgrade) guide |
 
-[v1-doc]: https://github.com/biig-io/DomainComponent/tree/v1
-[v2-doc]: https://github.com/biig-io/DomainComponent
+[v1-doc]: https://github.com/swagindustries/doctrine-domain-events/tree/v1.5.2/docs
+[v2-doc]: https://github.com/swagindustries/doctrine-domain-events/tree/v2.3.3/docs
+[v3-docs]: https://github.com/swagindustries/doctrine-domain-events/tree/master/docs
+[v3-upgrade]: https://github.com/swagindustries/doctrine-domain-events/tree/master/UPGRADE.md

@@ -13,3 +13,8 @@ services:
         alias: Biig\Component\Domain\Model\Instantiator\Instantiator
         public: true
 
+    # Tags added dynamically by the RegisterListenersCompilerPass
+    biig_domain.postload_listener:
+        class: Biig\Component\Domain\Model\Instantiator\DoctrineConfig\PostLoadDispatcherInjectionListener
+        arguments:
+            - '@biig_domain.dispatcher'

@@ -23,7 +23,10 @@ class Instantiator implements DomainModelInstantiatorInterface
         $this->dispatcher = $dispatcher;
     }
 
-    public function instantiate($className)
+    /**
+     * @param class-string $className
+     */
+    public function instantiate(string $className): object
     {
         $object = new $className();
         $this->injectDispatcher($object);
@@ -47,7 +50,7 @@ class Instantiator implements DomainModelInstantiatorInterface
         return $object;
     }
 
-    protected function injectDispatcher($object)
+    protected function injectDispatcher(object $object): void
     {
         if ($object instanceof ModelInterface) {
             $object->setDispatcher($this->dispatcher);

@@ -8,7 +8,7 @@ domain events.
 Make a rule
 -----------
 
-To make a new rule (its a listener) you should implement the `DomainRuleInterface`.
+To make a new rule (it's a listener) you should implement the `DomainRuleInterface`.
 
 ### Standalone usage
 
@@ -20,11 +20,13 @@ use Biig\Component\Domain\Rule\DomainRuleInterface;
 use Biig\Component\Domain\Event\DomainEvent;
 
 $dispatcher->addRule(new class implements DomainRuleInterface {
-    public function execute(DomainEvent $event) {
+    public function execute(DomainEvent $event)
+    {
         // add some specific behavior
     }
     
-    public function on() {
+    public function on()
+    {
         return 'on.event';
     }
 });
@@ -32,7 +34,8 @@ $dispatcher->addRule(new class implements DomainRuleInterface {
 
 #### Add a post persist delayed rule
 
-A post persist rule will occure only if the specified event is emit, but only after the data is persisted in storage. Basically flushed in the case of Doctrine.
+A post persist rule will occur only if the specified event is emitted, but only after the data is persisted in storage.
+Basically flushed in the case of Doctrine.
 
 ```php
 <?php
@@ -40,12 +43,14 @@ use Biig\Component\Domain\Event\DomainEvent;
 use Biig\Component\Domain\Rule\PostPersistDomainRuleInterface;
 
 $dispatcher->addRule(new class implements PostPersistDomainRuleInterface {
-    public function execute(DomainEvent $event) {
+    public function execute(DomainEvent $event)
+    {
         // add some specific behavior
     }
     
-    public function after() {
-        return 'on.event'; // You have to specify the model
+    public function after()
+    {
+        return 'on.event';
     }
 });
 ```
@@ -65,17 +70,17 @@ biig_domain:
 > Using PostPersistRule means that the flush of doctrine will (re)dispatch some events. If this is a great way to add features during your workflow...
 > This also means that using a Doctrine **flush** in a domain rule (even a different one) is something tricky.
 > 
-> However this package will not fail or end in infinite loop, it's 100% supported, but events order may be surprising.
+> However, this package will not fail or end in infinite loop, it's 100% supported, but events order may be surprising.
 > 
 > ⚠️⚠️⚠️⚠️⚠️⚠️⚠️
 
 
 ### Symfony Integration
 
-If you use the Symfony Bundle with auto-configuration of your services.
+If you use the Symfony Bundle with autoconfiguration of your services.
 **You don't have anything to do.**
 
-If you don't auto-discover your services and don't enable auto-configuration, then you will need to add the tag:
+If you don't auto-discover your services and don't enable autoconfiguration, then you will need to add the tag:
 ```yaml
 My\Domain\Rule:
     tags:
@@ -92,25 +97,15 @@ My\Domain\Rule:
         - { name: biig_domain.rule, event: 'your.event.name', method: 'execute', priority: 0 }
 ```
 
-_Notice: the priority field is optional._
+_Notice: the priority field is optional as well as method._
 
 
 #### Configuration reference
 
 ```yaml
 biig_domain:
-    # It modifies the DoctrineBundle configuration to register a new
-    # ClassMetadataInfo class so the instantiator now set the domain event
-    # dispatcher to your models automatically
-    override_doctrine_instantiator: true
-    
-    # By default it will override the doctrine instantiator only for
-    # the "default" entity manager of your application. You can specify
-    # many entity managers if you want.
-    entity_managers: []
-    
-    # Post persist events are not activated by default, you need to enable the post persist listeners
-    persist_listeners:
-        # As doctrine supports many connections, you need to enable your connections one by one
-        doctrine: ['default']
+    # By default, the bundle will be active on all connections registered,
+    # but you can specify explicitly which connections it should be enabled on.
+    # Defaults to empty array []
+    entity_managers: ['default']
 ```

@@ -9,38 +9,21 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 
 class DomainExtensionTest extends TestCase
 {
-    public function testItAddsDoctrinePostPersistListenerToContainer()
+    public function testItAddsAParameterForEntityManagersSupported()
     {
         $extension = new DomainExtension();
 
         $config = [[
-            'persist_listeners' => [
-                'doctrine' => ['default', 'custom_doctrine'],
-            ],
+            // notice that null would be resolved to empty array by the config component
+            'entity_managers' => ['default', 'foo'],
         ]];
 
         $container = new ContainerBuilder(new ParameterBag([
-            'kernel.debug' => false
+            'kernel.debug' => false,
         ]));
         $extension->load($config, $container);
 
-        $array = [
-            "biig_domain.post_persist_listener.doctrine_default" => [
-                [
-                    "connection" => "default"
-                ]
-            ],
-            "biig_domain.post_persist_listener.doctrine_custom_doctrine" => [
-                [
-                    "connection" => "custom_doctrine"
-                ]
-            ]
-        ];
-
-        $this->assertTrue($container->hasDefinition('biig_domain.post_persist_listener.doctrine_default'));
-        $this->assertTrue($container->hasDefinition('biig_domain.post_persist_listener.doctrine_custom_doctrine'));
-
-        $this->assertEquals($container->findTaggedServiceIds('doctrine.event_subscriber'), $array);
+        $this->assertEquals(['default', 'foo'], $container->getParameter('biig_domain.entity_managers'));
     }
 
     public function testItDoesntRegisterDoctrinePostPersistListenerToContainer()

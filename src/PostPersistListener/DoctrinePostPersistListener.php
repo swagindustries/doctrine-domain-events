@@ -5,7 +5,6 @@ namespace Biig\Component\Domain\PostPersistListener;
 use Biig\Component\Domain\Event\DomainEventDispatcherInterface;
 use Biig\Component\Domain\Model\DomainModel;
 use Biig\Component\Domain\Model\ModelInterface;
-use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Event\PostFlushEventArgs;
 
@@ -14,7 +13,7 @@ use Doctrine\ORM\Event\PostFlushEventArgs;
  *
  * Note: this listener is non thread safe because of Doctrine limitation.
  */
-class DoctrinePostPersistListener extends AbstractBridgeListener implements EventSubscriber
+class DoctrinePostPersistListener extends AbstractBridgeListener
 {
     /**
      * @var DomainModel[]
@@ -27,17 +26,12 @@ class DoctrinePostPersistListener extends AbstractBridgeListener implements Even
         $this->modelsStageForFlush = [];
     }
 
-    public function getSubscribedEvents()
-    {
-        return ['onFlush', 'postFlush'];
-    }
-
     /**
      * Cache entities that are going to be flush.
      */
     public function onFlush(OnFlushEventArgs $eventArgs)
     {
-        $entityManager = $eventArgs->getEntityManager();
+        $entityManager = $eventArgs->getObjectManager();
         $unitOfWork = $entityManager->getUnitOfWork();
 
         foreach ($unitOfWork->getScheduledEntityInsertions() as $entity) {
@@ -60,7 +54,7 @@ class DoctrinePostPersistListener extends AbstractBridgeListener implements Even
     }
 
     /**
-     * Entities flushed are not accessible at this point so we take the cache.
+     * Entities flushed are not accessible at this point, so we take the cache.
      */
     public function postFlush(PostFlushEventArgs $eventArgs)
     {

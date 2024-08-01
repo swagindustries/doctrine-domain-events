@@ -31,7 +31,7 @@ class DoctrinePostPersistListenerTest extends TestCase
         $entityManager = $this->prophesize(EntityManager::class);
         $entityManager->getUnitOfWork()->willReturn($unitOfWork->reveal());
         $onFlushEvent = $this->prophesize(OnFlushEventArgs::class);
-        $onFlushEvent->getEntityManager()->willReturn($entityManager->reveal());
+        $onFlushEvent->getObjectManager()->willReturn($entityManager->reveal());
 
         $postPersistListener = new DoctrinePostPersistListener($dispatcher->reveal());
         $postPersistListener->onFlush($onFlushEvent->reveal());
