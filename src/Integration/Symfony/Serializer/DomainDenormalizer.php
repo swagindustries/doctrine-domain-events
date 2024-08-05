@@ -4,7 +4,6 @@ namespace Biig\Component\Domain\Integration\Symfony\Serializer;
 
 use Biig\Component\Domain\Event\DomainEventDispatcherInterface;
 use Biig\Component\Domain\Model\ModelInterface;
-use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -14,7 +13,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 /**
  * Class DomainDenormalizer.
  */
-final class DomainDenormalizer implements NormalizerInterface, DenormalizerInterface, SerializerAwareInterface, CacheableSupportsMethodInterface
+final class DomainDenormalizer implements NormalizerInterface, DenormalizerInterface, SerializerAwareInterface
 {
     /**
      * @var ObjectNormalizer
@@ -32,7 +31,7 @@ final class DomainDenormalizer implements NormalizerInterface, DenormalizerInter
         $this->dispatcher = $dispatcher;
     }
 
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): mixed
     {
         $domain = $this->decorated->denormalize($data, $class, $format, $context);
 
@@ -48,10 +47,7 @@ final class DomainDenormalizer implements NormalizerInterface, DenormalizerInter
         return $this->decorated->supportsDenormalization($data, $type, $format, $context);
     }
 
-    /**
-     * @return array|string|int|float|bool|\ArrayObject|null
-     */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         return $this->decorated->normalize($object, $format, $context);
     }
@@ -68,8 +64,8 @@ final class DomainDenormalizer implements NormalizerInterface, DenormalizerInter
         }
     }
 
-    public function hasCacheableSupportsMethod(): bool
+    public function getSupportedTypes(?string $format): array
     {
-        return true;
+        return $this->decorated->getSupportedTypes($format);
     }
 }
