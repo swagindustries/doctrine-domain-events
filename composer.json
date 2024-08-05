@@ -29,9 +29,6 @@
         "symfony/debug-pack": "^1.0",
         "symfony/yaml": "^6.4 || ^7.0"
     },
-    "conflict": {
-        "doctrine/orm": "<2.6.3"
-    },
     "autoload": {
         "psr-4": {
             "Biig\\Component\\Domain\\": "./src/"
@@ -44,7 +41,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.0.x-dev"
+            "dev-master": "3.0.x-dev"
         }
     }
 }
