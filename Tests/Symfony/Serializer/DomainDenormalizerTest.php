@@ -8,8 +8,10 @@ use Biig\Component\Domain\Integration\Symfony\Serializer\DomainDenormalizer;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class DomainDenormalizerTest extends TestCase
@@ -17,7 +19,7 @@ class DomainDenormalizerTest extends TestCase
     use ProphecyTrait;
 
     /**
-     * @var ObjectNormalizer
+     * @var ObjectNormalizer|ObjectProphecy
      */
     private $decorated;
 
@@ -28,7 +30,8 @@ class DomainDenormalizerTest extends TestCase
 
     public function setUp(): void
     {
-        $this->decorated = $this->prophesize(ObjectNormalizer::class);
+        $this->decorated = $this->prophesize(NormalizerInterface::class);
+        $this->decorated->willImplement(DenormalizerInterface::class);
         $this->dispatcher = new DomainEventDispatcher();
     }
 
@@ -65,12 +68,5 @@ class DomainDenormalizerTest extends TestCase
 
         $denormalizer = new DomainDenormalizer($this->decorated->reveal(), $this->dispatcher);
         $denormalizer->denormalize([], FakeModel::class, null, []);
-    }
-
-    public function testItIsAnInstanceOfCacheableSupportsMethodInterface()
-    {
-        $denormalizer = new DomainDenormalizer($this->decorated->reveal(), $this->dispatcher);
-        $this->assertInstanceOf(CacheableSupportsMethodInterface::class, $denormalizer);
-        $this->assertTrue($denormalizer->hasCacheableSupportsMethod());
     }
 }
