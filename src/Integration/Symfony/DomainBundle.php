@@ -17,7 +17,7 @@ class DomainBundle extends Bundle
         return new DomainExtension();
     }
 
-    public function build(ContainerBuilder $container)
+    public function build(ContainerBuilder $container): void
     {
         parent::build($container);
 
