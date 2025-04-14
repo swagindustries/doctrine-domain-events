@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.1.1] - 2025-04-14
+
+### Added
+
+- Remove deprecation notice (Sf 8.0 compatibility / PHP 9.x)
+- Add official support for PHP 8.4 (now running on CI)
+
 ## [3.1.0] - 2024-08-06
 
 ### Added
