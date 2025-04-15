@@ -15,7 +15,13 @@ final class EntitiesHasDispatcherChecker
 {
     public function postFlush(PostFlushEventArgs $args): void
     {
-        $entityManager = $args->getEntityManager();
+        if (method_exists($args, 'getObjectManager')) {
+            $entityManager = $args->getObjectManager();
+        } else {
+            // BC Layer for doctrine <=2.12
+            // Method removed in ORM 3.0+
+            $entityManager = $args->getEntityManager();
+        }
         $unitOfWork = $entityManager->getUnitOfWork();
 
         foreach ($unitOfWork->getIdentityMap() as $entities) {
