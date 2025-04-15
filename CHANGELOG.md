@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.1.2] - 2025-04-15
+
+### Fixed
+
+- Support for Doctrine ORM v3 #25
+
 ## [3.1.1] - 2025-04-14
 
 ### Added
