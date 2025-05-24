@@ -23,10 +23,10 @@ Features
 
 Domain Events:
 
-* [Domain event dispatcher](docs/domain_event_dispatcher.md)
-* [Injection of the dispatcher in Doctrine entities](docs/injection_in_doctrine_entities.md)
-* [Symfony serializer integration](docs/symfony_serializer_integration.md)
-* [Learn how do more with our cookbooks](docs/cookbooks.md)
+* :bell: [Domain event dispatcher](docs/domain_event_dispatcher.md)
+* :zap: [Injection of the dispatcher in Doctrine entities](docs/injection_in_doctrine_entities.md)
+* :wrench: [Symfony serializer integration](docs/symfony_serializer_integration.md)
+* :star: [Learn how do more with our cookbooks](docs/cookbooks.md)
 
 Drawbacks
 ---------
@@ -60,11 +60,14 @@ class YourModel extends DomainModel
 ```
 
 ```php
+/**
+ * @implements DomainRuleInterface<DomainEvent>
+ */
 class DomainRule implements DomainRuleInterface
 {
-    public function on()
+    public function on(): string|array
     {
-        return YourModel::CREATION;
+        return YourModel::CREATION; // Or YourCustomEvent::class that extends DomainEvent
     }
     
     public function execute(DomainEvent $event)
@@ -116,10 +119,12 @@ Versions
 | Version | Status       | Documentation | Symfony Version | PHP Version | Misc                            |
 |---------|--------------|---------------|-----------------|-------------|---------------------------------|
 | 1.x     | Unmaintained | [v1][v1-doc]  | >= 3.3 && <5    | >= 7.1      |                                 |
-| 2.x     | Maintained   | [v2][v2-doc]  | >= 4.3          | >= 7.4      |                                 |
-| 3.x     | Latest       | [v3][v3-doc]  | >= 6.4          | >= 8.1      | See [UPGRADE](v3-upgrade) guide |
+| 2.x     | Unmaintained | [v2][v2-doc]  | >= 4.3          | >= 7.4      |                                 |
+| 3.x     | Unmaintained | [v3][v3-doc]  | >= 6.4          | >= 8.1      | See [UPGRADE](upgrade) guide    |
+| 4.x     | Latest       | [v3][v3-doc]  | >= 6.4          | >= 8.1      | See [UPGRADE](upgrade) guide    |
 
 [v1-doc]: https://github.com/swagindustries/doctrine-domain-events/tree/v1.5.2/docs
 [v2-doc]: https://github.com/swagindustries/doctrine-domain-events/tree/v2.3.3/docs
-[v3-docs]: https://github.com/swagindustries/doctrine-domain-events/tree/master/docs
-[v3-upgrade]: https://github.com/swagindustries/doctrine-domain-events/tree/master/UPGRADE.md
+[v3-docs]: https://github.com/swagindustries/doctrine-domain-events/tree/v3.1.2/docs
+[v4-docs]: https://github.com/swagindustries/doctrine-domain-events/tree/master/docs
+[upgrade]: https://github.com/swagindustries/doctrine-domain-events/tree/master/UPGRADE.md
