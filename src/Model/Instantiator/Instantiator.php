@@ -24,7 +24,9 @@ class Instantiator implements DomainModelInstantiatorInterface
     }
 
     /**
-     * @param class-string $className
+     * @template T of object
+     * @param class-string<T> $className
+     * @return T
      */
     public function instantiate(string $className): object
     {
@@ -34,7 +36,13 @@ class Instantiator implements DomainModelInstantiatorInterface
         return $object;
     }
 
-    public function instantiateWithArguments(string $className, ...$args)
+    /**
+     * @template T of object
+     * @param class-string<T> $className
+     * @param mixed ...$args
+     * @return T
+     */
+    public function instantiateWithArguments(string $className, ...$args): object
     {
         $object = new $className(...$args);
         $this->injectDispatcher($object);
@@ -42,7 +50,13 @@ class Instantiator implements DomainModelInstantiatorInterface
         return $object;
     }
 
-    public function instantiateViaStaticFactory(string $className, string $factoryMethodName, ...$args)
+    /**
+     * @template T of object
+     * @param class-string<T> $className
+     * @param mixed ...$args
+     * @return T
+     */
+    public function instantiateViaStaticFactory(string $className, string $factoryMethodName, ...$args): object
     {
         $object = $className::$factoryMethodName(...$args);
         $this->injectDispatcher($object);

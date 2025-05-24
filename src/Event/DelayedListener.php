@@ -10,7 +10,7 @@ class DelayedListener
     /**
      * @var string
      */
-    private $eventName;
+    private string $eventName;
 
     /**
      * @var callable
@@ -20,7 +20,7 @@ class DelayedListener
     /**
      * @var DomainEvent[]
      */
-    private $eventStack;
+    private array $eventStack;
 
     /**
      * DelayedEvent constructor.
@@ -35,7 +35,7 @@ class DelayedListener
     /**
      * @throws InvalidDomainEvent
      */
-    public function occur(DomainEvent $event)
+    public function occur(DomainEvent $event): void
     {
         $event->setDelayed();
         $subject = $event->getSubject();
@@ -50,7 +50,7 @@ class DelayedListener
     /**
      * Execute the listener on the events that already occurred.
      */
-    public function process(ModelInterface $model)
+    public function process(ModelInterface $model): void
     {
         $tmpStack = $this->eventStack;
         $this->eventStack = [];

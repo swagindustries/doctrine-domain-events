@@ -7,10 +7,15 @@ use Biig\Component\Domain\Event\DomainEvent;
 /**
  * Interface RuleInterface.
  *
- * You should never implements only this interface.
+ * You should never implement only this interface.
  * Use `DomainRuleInterface` or `DomainDelayedRuleInterface`.
+ *
+ * @template T of DomainEvent
  */
 interface RuleInterface
 {
-    public function execute(DomainEvent $event);
+    /**
+     * @param T $event
+     */
+    public function execute(DomainEvent $event): void;
 }

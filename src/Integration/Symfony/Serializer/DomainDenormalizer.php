@@ -10,9 +10,6 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\SerializerAwareInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
-/**
- * Class DomainDenormalizer.
- */
 final class DomainDenormalizer implements NormalizerInterface, DenormalizerInterface, SerializerAwareInterface
 {
     /**
@@ -20,10 +17,7 @@ final class DomainDenormalizer implements NormalizerInterface, DenormalizerInter
      */
     private $decorated;
 
-    /**
-     * @var DomainEventDispatcherInterface
-     */
-    private $dispatcher;
+    private DomainEventDispatcherInterface$dispatcher;
 
     public function __construct(NormalizerInterface $decorated, DomainEventDispatcherInterface $dispatcher)
     {
@@ -31,11 +25,11 @@ final class DomainDenormalizer implements NormalizerInterface, DenormalizerInter
         $this->dispatcher = $dispatcher;
     }
 
-    public function denormalize($data, $class, $format = null, array $context = []): mixed
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        $domain = $this->decorated->denormalize($data, $class, $format, $context);
+        $domain = $this->decorated->denormalize($data, $type, $format, $context);
 
-        if (is_subclass_of($class, ModelInterface::class)) {
+        if (is_subclass_of($type, ModelInterface::class)) {
             $domain->setDispatcher($this->dispatcher);
         }
 
@@ -47,9 +41,9 @@ final class DomainDenormalizer implements NormalizerInterface, DenormalizerInter
         return $this->decorated->supportsDenormalization($data, $type, $format, $context);
     }
 
-    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        return $this->decorated->normalize($object, $format, $context);
+        return $this->decorated->normalize($data, $format, $context);
     }
 
     public function supportsNormalization($data, $format = null, array $context = []): bool

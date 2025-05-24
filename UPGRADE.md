@@ -1,3 +1,10 @@
+From v3 to v4
+=============
+
+Nothing really changed. You need to **type** everywhere.
+- DomainRuleInterface - meaning, every "rule" of your app is impacted for methods `::on()` `::after()` `::execute()`
+- DomainEvent (if you override any methods of this class)
+
 From v2 to v3
 =============
 

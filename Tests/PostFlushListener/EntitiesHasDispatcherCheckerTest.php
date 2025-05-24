@@ -3,13 +3,9 @@ declare(strict_types=1);
 
 namespace Biig\Component\Domain\Tests\PostFlushListener;
 
-use Biig\Component\Domain\Event\DomainEvent;
 use Biig\Component\Domain\Event\DomainEventDispatcherInterface;
-use Biig\Component\Domain\Model\DomainModel;
 use Biig\Component\Domain\Model\Instantiator\Instantiator;
 use Biig\Component\Domain\PostFlushListener\EntitiesHasDispatcherChecker;
-use Biig\Component\Domain\Rule\DomainRuleInterface;
-use Biig\Component\Domain\Rule\PostPersistDomainRuleInterface;
 use Biig\Component\Domain\Tests\Model\FakeDomainEventDispatcher;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\PostFlushEventArgs;
@@ -20,7 +16,6 @@ use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Biig\Component\Domain\Tests\TestKernel;
 use Biig\Component\Domain\Tests\fixtures\Entity\FakeModel;
 use Biig\Component\Domain\Exception\FlushedEntityDoesntContainsDispatcherException;
 require_once __DIR__ . '/../fixtures/getComplexClassHierarchyDomainModel.php';
@@ -29,8 +24,8 @@ class EntitiesHasDispatcherCheckerTest extends KernelTestCase
 {
     use ProphecyTrait;
 
-    /** @var EntityManagerInterface|ObjectProphecy */
-    private $entityManger;
+    /** @var ObjectProphecy<EntityManagerInterface> */
+    private ObjectProphecy $entityManger;
 
     protected function setUp(): void
     {
@@ -38,10 +33,10 @@ class EntitiesHasDispatcherCheckerTest extends KernelTestCase
     }
 
     /* START INTEGRATION TEST */
-    public function testAnEntityThatDoesntHaveDispatcherWhileFlushedThrowAnError()
+    public function testAnEntityThatDoesntHaveDispatcherWhileFlushedThrowAnError(): void
     {
         self::bootKernel(['debug' => true]);
-        // You should not create your entites this way in your own code !
+        // You should not create your entities this way in your own code !
         // Use the Biig\Component\Domain\Model\Instantiator\Instantiator service to instantiate your entities.
         $model = new FakeModel();
 
@@ -52,7 +47,7 @@ class EntitiesHasDispatcherCheckerTest extends KernelTestCase
         $entityManager->flush();
     }
 
-    public function testItDoesntCheckIfNotDebug()
+    public function testItDoesntCheckIfNotDebug(): void
     {
         self::bootKernel(['debug' => false]);
         // You should not create your entites this way in your own code !
@@ -66,7 +61,7 @@ class EntitiesHasDispatcherCheckerTest extends KernelTestCase
         $this->assertTrue(true); // We except FlushedEntityDoesntContainsDispatcher exception not to be thrown
     }
 
-    public function testItDoesNothingIfDispatcherIsHereAndDebugIsEnabled()
+    public function testItDoesNothingIfDispatcherIsHereAndDebugIsEnabled(): void
     {
         self::bootKernel(['debug' => true]);
 
@@ -82,7 +77,7 @@ class EntitiesHasDispatcherCheckerTest extends KernelTestCase
     /* END INTEGRATION TEST */
 
     /* START UNIT TEST */
-    public function testIfGivenEntityIsntADomainModelItDoesNothing()
+    public function testIfGivenEntityIsntADomainModelItDoesNothing(): void
     {
         $this->entityManger->getClassMetadata(Argument::any())->shouldNotBeCalled();
 
@@ -92,7 +87,7 @@ class EntitiesHasDispatcherCheckerTest extends KernelTestCase
         ]));
     }
 
-    public function testThatADomainModelWithDispatcherIsOk()
+    public function testThatADomainModelWithDispatcherIsOk(): void
     {
         $this->entityManger->getClassMetadata(Argument::any())->shouldNotBeCalled();
 
@@ -103,7 +98,7 @@ class EntitiesHasDispatcherCheckerTest extends KernelTestCase
         ]));
     }
 
-    public function testThatADomainModelWithoutDispatcherThrownAnError()
+    public function testThatADomainModelWithoutDispatcherThrownAnError(): void
     {
         $metadata = $this->prophesize(ClassMetadata::class);
         $metadata->getIdentifier()->willReturn(['id']);
@@ -116,7 +111,7 @@ class EntitiesHasDispatcherCheckerTest extends KernelTestCase
         ]));
     }
 
-    public function testThatAComplexDomainClassHierarchyModelWithoutDispatcherThrownAnError()
+    public function testThatAComplexDomainClassHierarchyModelWithoutDispatcherThrownAnError(): void
     {
         $metadata = $this->prophesize(ClassMetadata::class);
         $metadata->getIdentifier()->willReturn(['id']);
@@ -129,7 +124,7 @@ class EntitiesHasDispatcherCheckerTest extends KernelTestCase
         ]));
     }
 
-    public function testItDoesNothingWhenAProxyIsGiven()
+    public function testItDoesNothingWhenAProxyIsGiven(): void
     {
         $proxy = $this->prophesize(Proxy::class)->reveal();
         $subject = new EntitiesHasDispatcherChecker();

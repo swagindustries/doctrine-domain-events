@@ -11,9 +11,7 @@ namespace Biig\Component\Domain\Rule;
 interface PostPersistDomainRuleInterface extends RuleInterface
 {
     /**
-     * Returns an array of event or a string it listen on.
-     *
-     * @return array|string
+     * Returns an array of event or a string it listens on.
      */
-    public function after();
+    public function after(): array|string;
 }

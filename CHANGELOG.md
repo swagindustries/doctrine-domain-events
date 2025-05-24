@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [4.0.0] - 2025-05-24
+
+### Added
+
+- Types everywhere - this is the major BC Break
+
+### Fixed
+
+- Deprecation notices triggered by Symfony
+
 ## [3.1.2] - 2025-04-15
 
 ### Fixed

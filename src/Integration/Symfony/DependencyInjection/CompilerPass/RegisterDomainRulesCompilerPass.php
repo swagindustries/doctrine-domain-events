@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class RegisterDomainRulesCompilerPass implements CompilerPassInterface
 {
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $definition = $container->findDefinition('biig_domain.dispatcher');
 
@@ -37,7 +37,7 @@ class RegisterDomainRulesCompilerPass implements CompilerPassInterface
     /**
      * @throws InvalidArgumentException
      */
-    private function addListenerForEventsInDefinition(string $id, string $class, array $attribute, Definition $definition)
+    private function addListenerForEventsInDefinition(string $id, string $class, array $attribute, Definition $definition): void
     {
         // Rules may not implement the
         $method = $attribute['method'] ?? null;
@@ -61,10 +61,8 @@ class RegisterDomainRulesCompilerPass implements CompilerPassInterface
 
     /**
      * `!empty()` is not enough to check multidimensional arrays emptiness.
-     *
-     * @return bool
      */
-    private function notEmpty(array $attributes)
+    private function notEmpty(array $attributes): bool
     {
         foreach ($attributes as $attribute) {
             if (!empty($attribute)) {
