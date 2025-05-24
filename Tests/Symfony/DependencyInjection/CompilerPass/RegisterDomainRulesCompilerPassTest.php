@@ -78,9 +78,9 @@ class RegisterDomainRulesCompilerPassTest extends TestCase
 
 class FooRule implements DomainRuleInterface
 {
-    public function execute(DomainEvent $event) {}
+    public function execute(DomainEvent $event): void {}
 
-    public function on()
+    public function on(): string
     {
         return 'test.event';
     }

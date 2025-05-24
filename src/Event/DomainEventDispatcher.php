@@ -15,7 +15,7 @@ final class DomainEventDispatcher extends EventDispatcher implements DomainEvent
     /**
      * @var DelayedListener[]
      */
-    private $delayedListeners;
+    private array $delayedListeners;
 
     public function __construct()
     {
@@ -26,7 +26,7 @@ final class DomainEventDispatcher extends EventDispatcher implements DomainEvent
     /**
      * @throws InvalidArgumentException
      */
-    public function addRule(RuleInterface $rule)
+    public function addRule(RuleInterface $rule): void
     {
         if (!$rule instanceof DomainRuleInterface && !$rule instanceof PostPersistDomainRuleInterface) {
             throw new InvalidArgumentException('The domain rule must be an instance of DomainRuleInterface or PostPersistDomainRuleInterface.');
@@ -41,7 +41,7 @@ final class DomainEventDispatcher extends EventDispatcher implements DomainEvent
         }
     }
 
-    public function addDomainRule(DomainRuleInterface $rule)
+    public function addDomainRule(DomainRuleInterface $rule): void
     {
         $events = $rule->on();
 
@@ -54,7 +54,7 @@ final class DomainEventDispatcher extends EventDispatcher implements DomainEvent
         }
     }
 
-    public function addPostPersistDomainRuleInterface(PostPersistDomainRuleInterface $rule)
+    public function addPostPersistDomainRuleInterface(PostPersistDomainRuleInterface $rule): void
     {
         $events = $rule->after();
 
@@ -71,14 +71,7 @@ final class DomainEventDispatcher extends EventDispatcher implements DomainEvent
         }
     }
 
-    /**
-     * @param Event|null $event
-     *
-     * @throws \Biig\Component\Domain\Exception\InvalidDomainEvent
-     *
-     * @return Event
-     */
-    public function dispatch($event, ?string $eventName = null): object
+    public function dispatch(object $event, ?string $eventName = null): object
     {
         $event = parent::dispatch($event, $eventName);
 
@@ -93,7 +86,7 @@ final class DomainEventDispatcher extends EventDispatcher implements DomainEvent
         return $event;
     }
 
-    public function persistModel(ModelInterface $model)
+    public function persistModel(ModelInterface $model): void
     {
         foreach ($this->delayedListeners as $listener) {
             if ($listener->shouldOccur($model)) {

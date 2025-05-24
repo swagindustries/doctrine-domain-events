@@ -74,12 +74,12 @@ class DelayedListenerTest extends TestCase
                 $this->entityManager = $entityManager;
             }
 
-            public function after()
+            public function after(): array
             {
                 return [FakeModel::class => 'action'];
             }
 
-            public function execute(DomainEvent $event)
+            public function execute(DomainEvent $event): void
             {
                 $model = new FakeModel();
                 $model->setFoo('RulePostPersist');
@@ -135,12 +135,12 @@ class CountAndInsertRule implements PostPersistDomainRuleInterface
         $this->entityManager = $entityManager;
     }
 
-    public function after()
+    public function after(): array|string
     {
         return [FakeModel::class => 'action'];
     }
 
-    public function execute(DomainEvent $event)
+    public function execute(DomainEvent $event): void
     {
         // Count times of execution
         $event->getSubject()->setFoo($event->getSubject()->getFoo() + 1);

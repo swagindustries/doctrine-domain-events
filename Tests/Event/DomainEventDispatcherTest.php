@@ -23,12 +23,12 @@ class DomainEventDispatcherTest extends TestCase
     {
         // Fixtures
         $rule = new class() implements DomainRuleInterface {
-            public function execute(DomainEvent $event)
+            public function execute(DomainEvent $event): void
             {
                 $event->getSubject()->setLowerFoo(strtolower($event->getSubject()->getFoo()));
             }
 
-            public function on()
+            public function on(): string
             {
                 return 'foo.changed';
             }
@@ -73,14 +73,14 @@ class DomainEventDispatcherTest extends TestCase
     {
         // Fixtures
         $rule = new class() implements DomainRuleInterface {
-            public function execute(DomainEvent $event)
+            public function execute(DomainEvent $event): void
             {
                 $event->getSubject()->setLowerFoo(
                     strtolower($event->getSubject()->getFoo() . $event->getSubject()->getBar())
                 );
             }
 
-            public function on()
+            public function on(): array
             {
                 return ['foo.changed', 'bar.changed'];
             }
@@ -138,12 +138,12 @@ class DomainEventDispatcherTest extends TestCase
     {
         // Objects needed
         $rule = new class() implements PostPersistDomainRuleInterface {
-            public function after()
+            public function after(): array
             {
                 return [FakeModel::class => 'action'];
             }
 
-            public function execute(DomainEvent $event)
+            public function execute(DomainEvent $event): void
             {
                 $subject = $event->getSubject();
                 $subject->setSomething('Rule was executed.');
@@ -172,17 +172,17 @@ class DomainEventDispatcherTest extends TestCase
         // Objects needed
         $rule = new class() implements PostPersistDomainRuleInterface, DomainRuleInterface {
             private $i = 0;
-            public function after()
+            public function after(): array
             {
                 return [FakeModel::class => 'action'];
             }
 
-            public function on()
+            public function on(): string
             {
                 return 'previous_action';
             }
 
-            public function execute(DomainEvent $event)
+            public function execute(DomainEvent $event): void
             {
                 $this->i++;
             }

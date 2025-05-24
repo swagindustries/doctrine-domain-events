@@ -9,11 +9,11 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 interface DomainEventDispatcherInterface extends EventDispatcherInterface
 {
-    public function addDomainRule(DomainRuleInterface $rule);
+    public function addDomainRule(DomainRuleInterface $rule): void;
 
-    public function addPostPersistDomainRuleInterface(PostPersistDomainRuleInterface $rule);
+    public function addPostPersistDomainRuleInterface(PostPersistDomainRuleInterface $rule): void;
 
-    public function persistModel(ModelInterface $model);
+    public function persistModel(ModelInterface $model): void;
 
     public function getDelayedListeners(): array;
 }

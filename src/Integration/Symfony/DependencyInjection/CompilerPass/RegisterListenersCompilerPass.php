@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class RegisterListenersCompilerPass implements CompilerPassInterface
 {
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         /** @var array<string,string> $connections */
         $entityManagers = $container->getParameter('doctrine.entity_managers');

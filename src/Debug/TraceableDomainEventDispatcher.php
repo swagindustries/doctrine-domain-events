@@ -40,17 +40,17 @@ class TraceableDomainEventDispatcher extends TraceableEventDispatcher implements
         parent::__construct($dispatcher, new Stopwatch(), new NullLogger());
     }
 
-    public function addDomainRule(DomainRuleInterface $rule)
+    public function addDomainRule(DomainRuleInterface $rule): void
     {
-        return $this->decorated->addDomainRule($rule);
+        $this->decorated->addDomainRule($rule);
     }
 
-    public function addPostPersistDomainRuleInterface(PostPersistDomainRuleInterface $rule)
+    public function addPostPersistDomainRuleInterface(PostPersistDomainRuleInterface $rule): void
     {
-        return $this->decorated->addPostPersistDomainRuleInterface($rule);
+        $this->decorated->addPostPersistDomainRuleInterface($rule);
     }
 
-    public function persistModel(ModelInterface $model)
+    public function persistModel(ModelInterface $model): void
     {
         /** @var DelayedListener $listener */
         foreach ($this->decorated->getDelayedListeners() as $listener) {
@@ -65,7 +65,7 @@ class TraceableDomainEventDispatcher extends TraceableEventDispatcher implements
             }
         }
 
-        return $this->decorated->persistModel($model);
+        $this->decorated->persistModel($model);
     }
 
     public function getEventsFired(): array
