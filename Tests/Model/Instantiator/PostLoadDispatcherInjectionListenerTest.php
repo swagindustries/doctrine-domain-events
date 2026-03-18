@@ -24,6 +24,9 @@ class PostLoadDispatcherInjectionListenerTest extends TestCase
 
     public function testItLoadsDispatcherInProxyEntity()
     {
+        if (!class_exists('Doctrine\ORM\Proxy\Proxy')) {
+            $this->markTestSkipped('New versions of doctrine ORM use native lazy objects');
+        }
         $dispatcher = new DomainEventDispatcher();
         $entityManager = $this->setupDatabase($dispatcher, 'testItLoadsDispatcherInProxyEntity');
         $entity = $entityManager->getRepository(FakeModel::class)->find(1);

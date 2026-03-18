@@ -5,6 +5,8 @@ namespace Biig\Component\Domain\Tests;
 use Biig\Component\Domain\Event\DomainEventDispatcherInterface;
 use Biig\Component\Domain\Model\Instantiator\DoctrineConfig\PostLoadDispatcherInjectionListener;
 use Biig\Component\Domain\PostPersistListener\DoctrinePostPersistListener;
+use Doctrine\Common\EventManager;
+use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\EntityManager;
 use Biig\Component\Domain\Model\Instantiator\DoctrineConfig\ClassMetadataFactory;
 use Doctrine\ORM\ORMSetup;
@@ -19,12 +21,13 @@ trait SetupDatabaseTrait
         copy(__DIR__ . '/fixtures/dbtest/initial_fake_model.db', $this->dbPath);
 
         $config = ORMSetup::createAttributeMetadataConfiguration(array(__DIR__ . '/../fixtures/Entity'), true);
+        $config->enableNativeLazyObjects(PHP_VERSION_ID >= 80400);
         $conn = [
             'driver' => 'pdo_sqlite',
             'path' => $this->dbPath,
         ];
 
-        $entityManager = EntityManager::create($conn, $config);
+        $entityManager = new EntityManager(DriverManager::getConnection($conn, $config), $config);
         $entityManager->getEventManager()->addEventListener(['postFlush', 'onFlush'], new DoctrinePostPersistListener($dispatcher));
         $entityManager->getEventManager()->addEventListener(['postLoad'], new PostLoadDispatcherInjectionListener($dispatcher));
 

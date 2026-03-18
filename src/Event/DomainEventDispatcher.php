@@ -8,7 +8,6 @@ use Biig\Component\Domain\Rule\DomainRuleInterface;
 use Biig\Component\Domain\Rule\PostPersistDomainRuleInterface;
 use Biig\Component\Domain\Rule\RuleInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
-use Symfony\Contracts\EventDispatcher\Event;
 
 final class DomainEventDispatcher extends EventDispatcher implements DomainEventDispatcherInterface
 {

@@ -6,6 +6,7 @@ use Biig\Component\Domain\Event\DomainEvent;
 
 /**
  * @template T of DomainEvent
+ *
  * @extends RuleInterface<T>
  */
 interface DomainRuleInterface extends RuleInterface
