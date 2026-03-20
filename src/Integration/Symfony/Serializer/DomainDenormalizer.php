@@ -17,7 +17,7 @@ final class DomainDenormalizer implements NormalizerInterface, DenormalizerInter
      */
     private $decorated;
 
-    private DomainEventDispatcherInterface$dispatcher;
+    private DomainEventDispatcherInterface $dispatcher;
 
     public function __construct(NormalizerInterface $decorated, DomainEventDispatcherInterface $dispatcher)
     {

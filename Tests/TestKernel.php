@@ -14,7 +14,11 @@ class TestKernel extends BaseKernel
 
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
     {
-        $loader->load(__DIR__ . '/../Tests/config/symfony_test_kernel_config.yaml');
+        if (PHP_VERSION_ID < 80400) {
+            $loader->load(__DIR__ . '/../Tests/config/symfony_test_kernel_config.yaml');
+        } else {
+            $loader->load(__DIR__ . '/../Tests/config/symfony_test_kernel_config_php_8.4.yaml');
+        }
     }
 
     public function getProjectDir(): string

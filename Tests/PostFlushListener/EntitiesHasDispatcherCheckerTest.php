@@ -50,8 +50,8 @@ class EntitiesHasDispatcherCheckerTest extends KernelTestCase
     public function testItDoesntCheckIfNotDebug(): void
     {
         self::bootKernel(['debug' => false]);
-        // You should not create your entites this way in your own code !
-        // Use the Biig\Component\Domain\Model\Instantiator\Instantiator service to instanciate your entities.
+        // You should not create your entities this way in your own code !
+        // Use the Biig\Component\Domain\Model\Instantiator\Instantiator service to instantiate your entities.
         $model = new FakeModel();
 
         /** @var EntityManagerInterface $entityManager */
@@ -92,9 +92,9 @@ class EntitiesHasDispatcherCheckerTest extends KernelTestCase
         $this->entityManger->getClassMetadata(Argument::any())->shouldNotBeCalled();
 
         $subject = new EntitiesHasDispatcherChecker();
-        $instantitor = new Instantiator($this->prophesize(DomainEventDispatcherInterface::class)->reveal());
+        $instantiator = new Instantiator($this->prophesize(DomainEventDispatcherInterface::class)->reveal());
         $subject->postFlush($this->mockEvent([
-            FakeModel::class => [$instantitor->instantiate(FakeModel::class)],
+            FakeModel::class => [$instantiator->instantiate(FakeModel::class)],
         ]));
     }
 
@@ -126,6 +126,9 @@ class EntitiesHasDispatcherCheckerTest extends KernelTestCase
 
     public function testItDoesNothingWhenAProxyIsGiven(): void
     {
+        if (!class_exists('Doctrine\ORM\Proxy\Proxy')) {
+            $this->markTestSkipped('New versions of doctrine ORM use native lazy objects');
+        }
         $proxy = $this->prophesize(Proxy::class)->reveal();
         $subject = new EntitiesHasDispatcherChecker();
 

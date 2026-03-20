@@ -7,9 +7,6 @@ use Biig\Component\Domain\Model\ModelInterface;
 
 class DelayedListener
 {
-    /**
-     * @var string
-     */
     private string $eventName;
 
     /**
